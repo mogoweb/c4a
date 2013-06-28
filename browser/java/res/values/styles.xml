@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # Copyright (c) 2012, The Linux Foundation. All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+ # met:
+ #     * Redistributions of source code must retain the above copyright
+ #      notice, this list of conditions and the following disclaimer.
+ #    * Redistributions in binary form must reproduce the above
+ #      copyright notice, this list of conditions and the following
+ #      disclaimer in the documentation and/or other materials provided
+ #      with the distribution.
+ #    * Neither the name of The Linux Foundation nor the names of its
+ #      contributors may be used to endorse or promote products derived
+ #      from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ # ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ # BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ # BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Styles -->
+
+    <style name="MainActivityTheme" parent="android:Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- Custom style, defined in attrs.xml -->
+        <item name="faviconViewStyle">@style/HomeBookmark</item>
+        <item name="tileViewStyle">@style/HomeTile</item>
+    </style>
+
+    <style name="ToolbarButton">
+        <item name="android:background">@drawable/toolbar_button_bg</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="UrlbarButton">
+        <item name="android:background">@null</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="HomeSection">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:animateLayoutChanges">true</item>
+    </style>
+
+    <style name="HomeScrollable">
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+
+    <style name="HomeCosmeticSeparator">
+        <item name="android:background">@color/SDCosmeticGray</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="HomeCatText">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">@color/HomeCatText</item>
+        <item name="android:textSize">@dimen/HomeCatText</item>
+        <item name="android:layout_marginLeft">3dp</item>
+    </style>
+
+    <style name="HomeCatButton">
+        <item name="android:background">@drawable/toolbar_button_bg</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">@color/HomeActionText</item>
+        <item name="android:textSize">@dimen/HomeActionText</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:paddingRight">11dp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+    <style name="HomeTile">
+        <item name="android:background">@drawable/toolbar_button_bg</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:longClickable">true</item>
+    </style>
+
+    <style name="HomeBookmark" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/toolbar_button_bg</item>
+        <item name="android:layout_width">130dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:clickable">true</item>
+        <item name="android:longClickable">true</item>
+    </style>
+
+    <style name="HomeHistoric" parent="@style/HomeBookmark">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawableLeft">@drawable/fav_history</item>
+    </style>
+
+    <!-- Colors -->
+
+    <color name="SDRed">#ffcc0000</color>
+    <color name="SDCosmeticGray">#ffe8e8e8</color>
+
+    <color name="ToolbarButtonPressed">#ffcc0000</color>
+
+    <color name="ContentBgStart">#ffe9e9e9</color>
+    <color name="ContentBgCenter">#ffffffff</color>
+    <color name="ContentBgStop">#fff9f9f9</color>
+
+    <color name="NoContentBg">#ff000000</color>
+
+    <color name="HomeCatText">#ff202020</color>
+    <color name="HomeCatText_Small">#ff909090</color>
+    <color name="HomeActionText">#FF808080</color>
+    <color name="HomeTileTitleBackground">#D0000000</color>
+
+    <color name="ProgressBar">#ff2ab3ff</color>
+
+    <!-- Dimensions -->
+
+    <dimen name="TilesSize">128dp</dimen>
+
+    <dimen name="HomeCatText">20sp</dimen>
+    <dimen name="HomeCatText_Small">16sp</dimen>
+    <dimen name="HomeActionText">18sp</dimen>
+
+</resources>

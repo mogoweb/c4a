@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # Copyright (c) 2012, 2013 The Linux Foundation. All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+ # met:
+ #     * Redistributions of source code must retain the above copyright
+ #      notice, this list of conditions and the following disclaimer.
+ #    * Redistributions in binary form must reproduce the above
+ #      copyright notice, this list of conditions and the following
+ #      disclaimer in the documentation and/or other materials provided
+ #      with the distribution.
+ #    * Neither the name of The Linux Foundation nor the names of its
+ #      contributors may be used to endorse or promote products derived
+ #      from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ # ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ # BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ # BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+
+<com.mogoweb.browser.HomeScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/home_content_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+
+    <!-- This is here just for the bottom-right corner... -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- OPEN TABS -->
+
+        <LinearLayout
+            style="@style/HomeSection"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingTop="2dp" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp" >
+
+                <TextView
+                    style="@style/HomeCatText"
+                    android:id="@+id/home_tabs_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/home_tabs" />
+
+                <TextView
+                    android:id="@+id/home_tabs_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@+id/home_tabs_label"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/HomeCatText_Small"
+                    android:textSize="@dimen/HomeCatText_Small" />
+
+                <Button
+                    style="@style/HomeCatButton"
+                    android:id="@+id/home_tabs_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:drawableLeft="@drawable/home_ic_new"
+                    android:text="@string/home_new_tab" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                style="@style/HomeScrollable"
+                android:id="@+id/home_tabs_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false" >
+
+                <LinearLayout
+                    android:id="@+id/home_tabs_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/HomeTile"
+                        android:id="@+id/home_tiles_new"
+                        android:src="@drawable/newtab_110dp"
+                        android:layout_width="@dimen/TilesSize"
+                        android:layout_height="@dimen/TilesSize"
+                        android:scaleType="center"
+                        android:visibility="gone"
+                        android:contentDescription="@string/nostring" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- FREQUENT -->
+        <View style="@style/HomeCosmeticSeparator" />
+
+        <LinearLayout
+            style="@style/HomeSection"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp" >
+
+                <TextView
+                    style="@style/HomeCatText"
+                    android:id="@+id/home_frequent_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/home_frequent_pages" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                style="@style/HomeScrollable"
+                android:id="@+id/home_frequent_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/home_frequent_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- BOOKMARKS -->
+        <View style="@style/HomeCosmeticSeparator" />
+
+        <LinearLayout
+            style="@style/HomeSection"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp" >
+
+                <TextView
+                    style="@style/HomeCatText"
+                    android:id="@+id/home_bookmarks_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/home_bookmarks" />
+
+                <Button
+                    style="@style/HomeCatButton"
+                    android:id="@+id/home_bookmarks_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:drawableLeft="@drawable/home_ic_organize"
+                    android:enabled="false"
+                    android:textColor="#40000000"
+                    android:text="@string/home_bookmarks_organize" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                style="@style/HomeScrollable"
+                android:id="@+id/home_bookmarks_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TableLayout
+                    android:id="@+id/home_bookmarks_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rowCount="3"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="vertical" >
+                </TableLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- HISTORY -->
+        <View style="@style/HomeCosmeticSeparator"
+              android:visibility="gone" />
+
+        <LinearLayout
+            style="@style/HomeSection"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp" >
+
+                <TextView
+                    style="@style/HomeCatText"
+                    android:id="@+id/home_history_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/home_history" />
+
+                <Button
+                    style="@style/HomeCatButton"
+                    android:id="@+id/home_history_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:enabled="false"
+                    android:textColor="#40000000"
+                    android:drawableLeft="@drawable/home_ic_more"
+                    android:text="@string/home_history_organize" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/home_history_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/HomeHistoric"
+                    android:text="@string/home_temp_hist_1" />
+
+                <TextView
+                    style="@style/HomeHistoric"
+                    android:text="@string/home_temp_hist_2" />
+
+                <TextView
+                    style="@style/HomeHistoric"
+                    android:text="@string/home_temp_hist_3" />
+
+                <TextView
+                    style="@style/HomeHistoric"
+                    android:text="@string/home_temp_hist_4" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView android:src="@drawable/home_top_left_accent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/nostring"
+        android:layout_height="wrap_content" />
+
+    <ImageView android:src="@drawable/home_bottom_right_accent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/nostring"
+        android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</com.mogoweb.browser.HomeScreen>

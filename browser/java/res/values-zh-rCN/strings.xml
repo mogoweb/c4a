@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+ # met:
+ #     * Redistributions of source code must retain the above copyright
+ #      notice, this list of conditions and the following disclaimer.
+ #    * Redistributions in binary form must reproduce the above
+ #      copyright notice, this list of conditions and the following
+ #      disclaimer in the documentation and/or other materials provided
+ #      with the distribution.
+ #    * Neither the name of The Linux Foundation nor the names of its
+ #      contributors may be used to endorse or promote products derived
+ #      from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ # ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ # BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ # BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">MogoBrowser</string>
+    <string name="menu_settings">设置</string>
+    <string name="nostring"></string>
+    <string name="search_hint">搜索或输入网址</string>
+    <string name="home_tabs">OPEN TABS</string>
+    <string name="home_new_tab">NEW</string>
+    <string name="home_frequent_pages">PAGES YOU VISIT OFTEN</string>
+    <string name="home_frequent_clear">CLEAR</string>
+    <string name="home_bookmarks">BOOKMARKS</string>
+    <string name="home_bookmarks_organize">ORGANIZE</string>
+    <string name="home_history">HISTORY</string>
+    <string name="home_history_organize">MORE</string>
+
+    <string name="home_temp_bk_1">Facebook (1)</string>
+    <string name="home_temp_bk_2">Sunspider Benchmark</string>
+    <string name="home_temp_bk_3">Amazon</string>
+    <string name="home_temp_bk_4">V8 Benchmark</string>
+    <string name="home_temp_bk_5">Google</string>
+    <string name="home_temp_bk_6">ebay</string>
+    <string name="home_temp_bk_7">Youtube</string>
+    <string name="home_temp_bk_8">CNN</string>
+    <string name="home_temp_bk_9">Wikipedia</string>
+    <string name="home_temp_hist_1">10 better names for SWE</string>
+    <string name="home_temp_hist_2">Second</string>
+    <string name="home_temp_hist_3">Third</string>
+    <string name="home_temp_hist_4">Fourth</string>
+
+    <string name="url_hint">Type URL Here</string>
+    <string name="accessibility_content_view">Web View</string>
+
+    <!-- Action Bar -->
+    <string name="action_bar_share">Share</string>
+    <string name="action_bar_search">Search</string>
+
+    <!-- Media Player -->
+    <string name="media_player_error_title">Cannot play video</string>
+    <string name="media_player_error_text_invalid_progressive_playback">
+      Sorry, this video is not valid for streaming to this device.</string>
+    <string name="media_player_error_text_unknown">
+      Sorry, this video cannot be played.</string>
+    <string name="media_player_error_button">OK</string>
+    <string name="media_player_loading_video">Loading video</string>
+    <string name="menu_request_desktop_site">访问电脑版网页</string>
+    <string name="menu_about_build">关于</string>
+
+    <!-- Bookmark -->
+    <string name="name">标题</string>
+    <string name="address">地址</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="bookmark_this_page">将此页加为书签</string>
+
+    <!-- Javascript dialogs -->
+    <string name="ok">OK</string>
+    <string name="js_dialog_title">The page at \' %1$s \' says:</string>
+
+    <!-- HttpAuth dialogs -->
+    <string name="sign_in_to">"登录 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
+    <string name="username">"姓名"</string>
+    <string name="password">"密码"</string>
+    <string name="action">"登录"</string>
+
+    <!-- Context Menu Strings -->
+    <string name="open_in_new_tab">在新标签页中打开</string>
+    <string name="copy_link">复制链接网址</string>
+
+    <!--Devtools String -->
+    <string name="about_blank">about:blank</string>
+
+    <!-- External Server Url -->
+    <string name="server_url"></string>
+
+    <!-- Preferences -->
+    <string name="pref_basics_title">基本设置</string>
+    <string name="pref_advanced_title">高级</string>
+    <string name="pref_autofill_forms">表单自动填充</string>
+    <string name="pref_autofill_forms_summary">只需点击一下，即可填完网络表单</string>
+    <string name="pref_enable_javascript">启用JavaScript</string>
+    <string name="pref_block_popups">拦截弹出式窗口</string>
+    <string name="pref_block_popups_summary">拦截所有站点的弹出式窗口</string>
+
+</resources>

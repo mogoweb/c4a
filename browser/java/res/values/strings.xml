@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+ # met:
+ #     * Redistributions of source code must retain the above copyright
+ #      notice, this list of conditions and the following disclaimer.
+ #    * Redistributions in binary form must reproduce the above
+ #      copyright notice, this list of conditions and the following
+ #      disclaimer in the documentation and/or other materials provided
+ #      with the distribution.
+ #    * Neither the name of The Linux Foundation nor the names of its
+ #      contributors may be used to endorse or promote products derived
+ #      from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ # ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ # BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ # BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">MogoBrowser</string>
+    <string name="menu_settings">Settings</string>
+    <string name="nostring"></string>
+    <string name="search_hint">Explore or Go To &#8230;</string>
+    <string name="home_tabs">OPEN TABS</string>
+    <string name="home_new_tab">NEW</string>
+    <string name="home_frequent_pages">PAGES YOU VISIT OFTEN</string>
+    <string name="home_frequent_clear">CLEAR</string>
+    <string name="home_bookmarks">BOOKMARKS</string>
+    <string name="home_bookmarks_organize">ORGANIZE</string>
+    <string name="home_history">HISTORY</string>
+    <string name="home_history_organize">MORE</string>
+
+    <string name="home_temp_bk_1">Facebook (1)</string>
+    <string name="home_temp_bk_2">Sunspider Benchmark</string>
+    <string name="home_temp_bk_3">Amazon</string>
+    <string name="home_temp_bk_4">V8 Benchmark</string>
+    <string name="home_temp_bk_5">Google</string>
+    <string name="home_temp_bk_6">ebay</string>
+    <string name="home_temp_bk_7">Youtube</string>
+    <string name="home_temp_bk_8">CNN</string>
+    <string name="home_temp_bk_9">Wikipedia</string>
+    <string name="home_temp_hist_1">10 better names for SWE</string>
+    <string name="home_temp_hist_2">Second</string>
+    <string name="home_temp_hist_3">Third</string>
+    <string name="home_temp_hist_4">Fourth</string>
+
+    <string name="url_hint">Type URL Here</string>
+    <string name="accessibility_content_view">Web View</string>
+
+    <!-- Action Bar -->
+    <string name="action_bar_share">Share</string>
+    <string name="action_bar_search">Search</string>
+
+    <!-- Media Player -->
+    <string name="media_player_error_title">Cannot play video</string>
+    <string name="media_player_error_text_invalid_progressive_playback">
+      Sorry, this video is not valid for streaming to this device.</string>
+    <string name="media_player_error_text_unknown">
+      Sorry, this video cannot be played.</string>
+    <string name="media_player_error_button">OK</string>
+    <string name="media_player_loading_video">Loading video</string>
+    <string name="menu_request_desktop_site">Request desktop site</string>
+    <string name="menu_about_build">About this build</string>
+
+    <!-- Bookmark -->
+    <string name="name">Title</string>
+    <string name="address">Address</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="bookmark_this_page">Bookmark this page</string>
+
+    <!-- Javascript dialogs -->
+    <string name="ok">OK</string>
+    <string name="js_dialog_title">The page at \' %1$s \' says:</string>
+
+    <!-- HttpAuth dialogs -->
+    <!-- This is used as the title of a dialog which is used to sign in to a secure site.
+            "%s1"is replaced with the host and "%s2" with realm -->
+    <string name="sign_in_to">Sign in to <xliff:g id="hostname">%s1</xliff:g> \"<xliff:g id="realm">%s2</xliff:g>\"</string>
+    <!-- Prompt for an input box that allows the user to enter their login name -->
+    <string name="username">Name</string>
+    <!-- Prompt for an input box that allows the user to enter their password -->
+    <string name="password">Password</string>
+    <!-- The label on the "sign in" button -->
+    <string name="action">Sign in</string>
+
+    <!-- Context Menu Strings -->
+    <string name="open_in_new_tab">Open in new tab</string>
+    <string name="copy_link">Copy link address</string>
+
+    <!--Devtools String -->
+    <string name="about_blank">about:blank</string>
+
+    <!-- External Server Url -->
+    <string name="server_url"></string>
+
+    <!-- Preferences -->
+    <string name="pref_basics_title">Basics</string>
+    <string name="pref_advanced_title">Advanced</string>
+    <string name="pref_autofill_forms">Autofill forms</string>
+    <string name="pref_autofill_forms_summary">Fill out web forms with a single touch</string>
+    <string name="pref_enable_javascript">Enable JavaScript</string>
+    <string name="pref_block_popups">Block Pop-ups</string>
+    <string name="pref_block_popups_summary">Block pop-ups from all sites</string>
+
+</resources>
