@@ -91,14 +91,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <!-- ProgressBar
-                style="?android:attr/progressBarStyleInverse"
-                android:id="@+id/toolbar_url_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone" / -->
-
             <ImageButton
                 style="@style/UrlbarButton"
                 android:id="@+id/toolbar_url_stop"

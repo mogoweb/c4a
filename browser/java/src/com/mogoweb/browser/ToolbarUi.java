@@ -56,7 +56,6 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
     private final ImageButton mButtonHome;
     private final ImageButton mButtonOverflow;
     private final View mUrlPageGroup;
-    // private final ProgressBar mUrlPageLoading;
     private final ImageButton mUrlPageStop;
     private final ImageButton mUrlPageReload;
     private final ImageButton mUrlClear;
@@ -105,7 +104,6 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         mButtonHome = (ImageButton) rootView.findViewById(R.id.toolbar_btn_home);
         mButtonOverflow = (ImageButton) rootView.findViewById(R.id.toolbar_btn_overflow);
         mUrlPageGroup = rootView.findViewById(R.id.toolbar_url_loader);
-        //mUrlPageLoading = (ProgressBar) rootView.findViewById(R.id.toolbar_url_loading);
         mUrlPageStop = (ImageButton) rootView.findViewById(R.id.toolbar_url_stop);
         mUrlPageReload = (ImageButton) rootView.findViewById(R.id.toolbar_url_reload);
         mUrlClear = (ImageButton) rootView.findViewById(R.id.toolbar_url_clear);
@@ -281,7 +279,6 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         boolean notEditing = !hasFocus && hasText;
         mUrlPageGroup.setVisibility(notEditing ? View.VISIBLE : View.GONE);
         mUrlPageStop.setVisibility((notEditing && mIsLoading) ? View.VISIBLE : View.GONE);
-        // mUrlPageLoading.setVisibility((notEditing && mIsLoading) ? View.VISIBLE : View.GONE);
         mUrlPageReload.setVisibility((notEditing && !mIsLoading) ? View.VISIBLE : View.GONE);
     }
 

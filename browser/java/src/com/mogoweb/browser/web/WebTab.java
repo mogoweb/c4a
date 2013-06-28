@@ -61,6 +61,7 @@ public class WebTab extends TabBase implements Tab {
     private int mNativeWebContents;
     private final List<Tab.Listener> mListeners = new ArrayList<Tab.Listener>();
     private ClientDelegate mClientDelegate;
+    private WebContentsObserverAndroid mWebContentsObserver;
 
     // http auth
     private HttpAuthenticationDialog mHttpAuthenticationDialog;
@@ -303,6 +304,40 @@ public class WebTab extends TabBase implements Tab {
         // Build the WebContentsDelegate
         mWebContentsDelegate = new TabBaseChromeWebContentsDelegateAndroid();
         nativeInitWebContentsDelegate(mNativeWebTab, mWebContentsDelegate);
+
+        mWebContentsObserver = new WebContentsObserverAndroid(mContentView.getContentViewCore()) {
+            @Override
+            public void didFailLoad(boolean isProvisionalLoad, boolean isMainFrame, int errorCode,
+                String description, String failingUrl) {
+                for (Tab.Listener li : mListeners)
+                    li.didFailLoad(isProvisionalLoad, isMainFrame, errorCode, description, failingUrl);
+            }
+
+            @Override
+            public void didStartProvisionalLoadForFrame(long frameId,
+                long parentFrameId, boolean isMainFrame, String validatedUrl,
+                boolean isErrorPage, boolean isIframeSrcdoc) {
+                if (isMainFrame) {
+                    mbMainFrameStartedLoading = true;
+                    mProgress = 0;
+                }
+                // Notify the listeners
+                for (Tab.Listener li : mListeners)
+                    li.onLoadStarted(isMainFrame);
+            }
+
+            @Override
+            public void didFinishLoad(long frameId, String validatedUrl,
+                    boolean isMainFrame) {
+                if (isMainFrame) {
+                    mbMainFrameStartedLoading = false;
+                    mProgress = 0;
+                }
+                // Notify the listeners
+                for (Tab.Listener li : mListeners)
+                    li.onLoadStopped(isMainFrame);
+            }
+        };
 
         // To be called after everything is initialized.
         mCleanupReference = new CleanupReference(this,
