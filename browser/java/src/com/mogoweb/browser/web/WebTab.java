@@ -287,9 +287,13 @@ public class WebTab extends TabBase implements Tab {
      */
     @Override
     public void destroy() {
-//        mTabBase.destroy();
+        destroyContentView();
+        if (mNativeWebTab != 0) {
+            mCleanupReference.cleanupNow();
+            mNativeWebTab = 0;
+        }
     }
-    
+
     /**
      * @param context              The Context the view is running in.
      */
@@ -467,6 +471,13 @@ public class WebTab extends TabBase implements Tab {
     @Override
     public ContentView getContentView() {
         return mContentView;
+    }
+    
+    private void destroyContentView() {
+        if (mContentView == null) return;
+
+        mContentView.destroy();
+        mContentView = null;
     }
 
     @Override
