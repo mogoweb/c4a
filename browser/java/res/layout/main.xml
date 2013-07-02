@@ -29,43 +29,55 @@
  # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/browser_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants"
     tools:context=".BrowserActivity" >
 
-    <!-- Include the Toolbar - always there -->
-    <include
+    <LinearLayout
+        android:id="@+id/browser_view"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
-        layout="@layout/browser_toolbar" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <ViewSwitcher
-        android:id="@+id/screen_switcher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <FrameLayout
-            android:id="@+id/tab_main_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:descendantFocusability="afterDescendants">
-        </FrameLayout>
-
+        <!-- Include the Toolbar - always there -->
         <include
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/home_content" />
+            android:layout_height="48dip"
+            layout="@layout/browser_toolbar" />
 
-    </ViewSwitcher>
+        <FrameLayout
+            android:id="@+id/screen_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-</LinearLayout>
+            <FrameLayout
+                android:id="@+id/tab_main_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:descendantFocusability="afterDescendants">
+            </FrameLayout>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                layout="@layout/home_content" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        layout="@layout/tab_screen" />
+
+</FrameLayout>

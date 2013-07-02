@@ -55,7 +55,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ViewSwitcher;
 
 import com.mogoweb.browser.Intention.Type;
 import com.mogoweb.browser.TabManager.TabData;
@@ -81,8 +80,8 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private final BrowserPreferences mBrowserPrefs;
 
     // views referenced
-    private ViewSwitcher mScreenSwitcher;
     private HomeScreen mHomeView;
+    private TabScreen mTabScreen;
     FrameLayout mTabContainer;
     private ContentViewRenderView mRenderTarget;
 
@@ -130,8 +129,6 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mToolbarUi = new ToolbarUi(mActivity.findViewById(R.id.toolbar), mContext);
         mToolbarUi.setListener(this);
 
-        mScreenSwitcher = (ViewSwitcher)mActivity.findViewById(R.id.screen_switcher);
-
         mTabContainer = (FrameLayout) mActivity.findViewById(R.id.tab_main_container);
         Logger.warn("creating RenderTarget");
         mRenderTarget = new ContentViewRenderView(mActivity) {
@@ -143,6 +140,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mTabContainer.addView(mRenderTarget, COVER_SCREEN_PARAMS);
 
         mHomeView = (HomeScreen) mActivity.findViewById(R.id.home_view);
+        mTabScreen = (TabScreen) mActivity.findViewById(R.id.tab_screen);
 
         mActivity.registerForContextMenu(mTabContainer);
 
@@ -262,7 +260,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     }
 
     private void resetFocus() {
-        LinearLayout container = (LinearLayout) mActivity.findViewById(R.id.browser_activity_root);
+        FrameLayout container = (FrameLayout) mActivity.findViewById(R.id.browser_activity_root);
         container.requestFocus();
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(container.getWindowToken(), 0);
@@ -276,34 +274,28 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         imm.hideSoftInputFromWindow(mTabContainer.getWindowToken(), 0);
     }
 
+    private void showTabScreen() {
+        mTabScreen.setVisibility(View.VISIBLE);
+        mTabScreen.bringToFront();
+    }
+
+    private void hideTabScreen() {
+        mTabScreen.setVisibility(View.GONE);
+    }
+
     private void showHomeScreen() {
-
-        if (mHomeViewShown)
-            return;
-
         resetFocus();
         Logger.debug("Showing HomeScreen");
-        mHomeViewShown = true;
 
-        mHomeView.updateTabTiles();
         mHomeView.updateMostFrequentTiles();
         mHomeView.updateBookmarkTiles();
-
-        mScreenSwitcher.showNext();
-        mToolbarUi.setHomeButtonPressed(true);
     }
 
     private void hideHomeScreen() {
-        if (mHomeView == null || !mHomeViewShown)
-            return;
-
         resetFocus();
-        mHomeViewShown = false;
         Logger.debug("Hiding HomeScreen");
-        mArrivedFromHomeButton = false;
 
-        mScreenSwitcher.showPrevious();
-        mToolbarUi.setHomeButtonPressed(false);
+        mHomeView.setVisibility(View.GONE);
     }
 
 
@@ -334,13 +326,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
 
     @Override
     public void onToolbarToggleHome() {
-        if (!mHomeViewShown) {
-            mArrivedFromHomeButton = true;
-
-            showHomeScreen();
-        } else {
-            hideHomeScreen();
-        }
+        showTabScreen();
     }
 
     @Override
@@ -474,6 +460,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         }
 
         if (td.tab instanceof WebTab) {
+            Logger.debug("show new tab");
             ContentView contentView = td.tab.getContentView();
             mRenderTarget.setCurrentContentView(contentView);
             mTabContainer.addView(contentView);
@@ -489,7 +476,12 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     @Override
     public void onTabShow(TabData tab) {
         Logger.debug("onTabShow");
-        hideHomeScreen();
+        if (tab.tab.getEmbodiment() == Tab.Embodiment.E_Welcome) {
+            hideTabScreen();
+            showHomeScreen();
+        } else {
+            hideHomeScreen();
+        }
     }
 
     // Tab.Listener implementation

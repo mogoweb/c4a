@@ -37,6 +37,7 @@
     <string name="search_hint">Explore or Go To &#8230;</string>
     <string name="home_tabs">OPEN TABS</string>
     <string name="home_new_tab">NEW</string>
+    <string name="home_return_tab">RETURN</string>
     <string name="home_frequent_pages">PAGES YOU VISIT OFTEN</string>
     <string name="home_frequent_clear">CLEAR</string>
     <string name="home_bookmarks">BOOKMARKS</string>
