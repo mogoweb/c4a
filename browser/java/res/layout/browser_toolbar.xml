@@ -47,8 +47,8 @@
 
     <ImageButton
         style="@style/ToolbarButton"
-        android:id="@+id/toolbar_btn_home"
-        android:src="@drawable/ic_menu_home"
+        android:id="@+id/toolbar_btn_tabs"
+        android:src="@drawable/ic_menu_tabs"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_toLeftOf="@+id/toolbar_btn_overflow"
@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/toolbar_btn_home"
+        android:layout_toLeftOf="@+id/toolbar_btn_tabs"
         android:layout_marginBottom="2dp" >
 
         <ImageButton

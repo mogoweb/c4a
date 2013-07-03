@@ -275,6 +275,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     }
 
     private void showTabScreen() {
+        mTabScreen.updateTabTiles();
         mTabScreen.setVisibility(View.VISIBLE);
         mTabScreen.bringToFront();
     }
@@ -284,18 +285,28 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     }
 
     private void showHomeScreen() {
+        if (mHomeViewShown)
+            return;
+
         resetFocus();
         Logger.debug("Showing HomeScreen");
 
         mHomeView.updateMostFrequentTiles();
         mHomeView.updateBookmarkTiles();
+
+        mHomeView.setVisibility(View.VISIBLE);
+        mHomeViewShown = true;
     }
 
     private void hideHomeScreen() {
+        if (!mHomeViewShown)
+            return;
+
         resetFocus();
         Logger.debug("Hiding HomeScreen");
 
         mHomeView.setVisibility(View.GONE);
+        mHomeViewShown = false;
     }
 
 
@@ -325,7 +336,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     }
 
     @Override
-    public void onToolbarToggleHome() {
+    public void onToolbarToggleTabs() {
         showTabScreen();
     }
 

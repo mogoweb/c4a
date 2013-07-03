@@ -53,7 +53,7 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
     private final SmartBox mSmartBox;
     private final SearchModel mSmartBoxSearchModel;
     private final View mUrlSearchHint;
-    private final ImageButton mButtonHome;
+    private final ImageButton mButtonTabs;
     private final ImageButton mButtonOverflow;
     private final View mUrlPageGroup;
     private final ImageButton mUrlPageStop;
@@ -83,10 +83,10 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         void onToolbarPageReload();
 
         /**
-         * ToolBar is requesting for the Home screen to be shown. This reflects
-         * the click on the Home button.
+         * ToolBar is requesting for the Tab screen to be shown. This reflects
+         * the click on the Tabs button.
          */
-        void onToolbarToggleHome();
+        void onToolbarToggleTabs();
 
         /**
          * ToolBar is requesting for the Overflow Menu to be shown. This
@@ -101,7 +101,7 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
 
         mSmartBox = (SmartBox) rootView.findViewById(R.id.toolbar_url_editor);
         mUrlSearchHint = rootView.findViewById(R.id.toolbar_url_hint);
-        mButtonHome = (ImageButton) rootView.findViewById(R.id.toolbar_btn_home);
+        mButtonTabs = (ImageButton) rootView.findViewById(R.id.toolbar_btn_tabs);
         mButtonOverflow = (ImageButton) rootView.findViewById(R.id.toolbar_btn_overflow);
         mUrlPageGroup = rootView.findViewById(R.id.toolbar_url_loader);
         mUrlPageStop = (ImageButton) rootView.findViewById(R.id.toolbar_url_stop);
@@ -116,7 +116,7 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
 
         // listen to clicks and actions
         mUrlSearchHint.setOnClickListener(this);
-        mButtonHome.setOnClickListener(this);
+        mButtonTabs.setOnClickListener(this);
         mButtonOverflow.setOnClickListener(this);
         mUrlPageStop.setOnClickListener(this);
         mUrlPageReload.setOnClickListener(this);
@@ -173,16 +173,6 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         mProgressDrawable.setLevel(100 * progress);
     }
 
-    public void setHomeButtonPressed(boolean pressed) {
-        mButtonHome.setClickable(true);
-        mButtonHome.setImageResource(pressed ? R.drawable.ic_menu_home_on : R.drawable.ic_menu_home);
-    }
-
-    public void setHomeButtonDisabled(boolean disabled) {
-        mButtonHome.setClickable(!disabled);
-        mButtonHome.setImageResource(disabled ? R.drawable.ic_menu_home_off : R.drawable.ic_menu_home_on);
-    }
-
     public View getMenuAnchor() {
         return mButtonOverflow;
     }
@@ -230,9 +220,9 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
             mSmartBox.requestFocus();
             return;
 
-        case R.id.toolbar_btn_home:
+        case R.id.toolbar_btn_tabs:
             if (mListener != null)
-                mListener.onToolbarToggleHome();
+                mListener.onToolbarToggleTabs();
             break;
 
         case R.id.toolbar_btn_overflow:
