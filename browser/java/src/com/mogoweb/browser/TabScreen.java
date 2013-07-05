@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mogoweb.browser.Intention.Type;
 import com.mogoweb.browser.Tab.Embodiment;
@@ -14,6 +13,7 @@ import com.mogoweb.browser.TabManager.TabData;
 import com.mogoweb.browser.utils.Logger;
 import com.mogoweb.browser.views.AnimationUtils;
 import com.mogoweb.browser.views.DesignShared;
+import com.mogoweb.browser.views.PageIndicator;
 import com.mogoweb.browser.views.TileView;
 
 public class TabScreen extends LinearLayout implements TabManager.Listener {
@@ -56,8 +56,8 @@ public class TabScreen extends LinearLayout implements TabManager.Listener {
 
     private void updateTabCounter() {
         // Update the tab count
-        TextView tabCounter = (TextView) findViewById(R.id.home_tabs_count);
-        tabCounter.setText("(" + mTabManager.getTabsCount() + ")");
+        PageIndicator indicator = (PageIndicator) findViewById(R.id.tabs_page_indicator);
+        indicator.setDotCount(mTabManager.getTabsCount());
     }
 
     private TileView getTabTile(TabData td) {

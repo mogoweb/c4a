@@ -76,7 +76,6 @@
     </style>
 
     <style name="HomeCatText">
-        <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textColor">@color/HomeCatText</item>
         <item name="android:textSize">@dimen/HomeCatText</item>
         <item name="android:layout_marginLeft">3dp</item>
@@ -86,7 +85,6 @@
         <item name="android:background">@drawable/toolbar_button_bg</item>
         <item name="android:minHeight">40dp</item>
         <item name="android:minWidth">0dp</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textColor">@color/HomeActionText</item>
         <item name="android:textSize">@dimen/HomeActionText</item>
         <item name="android:longClickable">false</item>
@@ -121,6 +119,10 @@
     <style name="HomeHistoric" parent="@style/HomeBookmark">
         <item name="android:layout_width">match_parent</item>
         <item name="android:drawableLeft">@drawable/fav_history</item>
+    </style>
+
+    <style name="PageIndicator">
+        <item name="dotDrawable">@drawable/gd_page_indicator_dot</item>
     </style>
 
     <!-- Colors -->
