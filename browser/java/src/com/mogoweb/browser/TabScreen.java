@@ -1,25 +1,32 @@
 package com.mogoweb.browser;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.mogoweb.browser.Intention.Type;
 import com.mogoweb.browser.Tab.Embodiment;
 import com.mogoweb.browser.TabManager.TabData;
 import com.mogoweb.browser.utils.Logger;
-import com.mogoweb.browser.views.AnimationUtils;
 import com.mogoweb.browser.views.DesignShared;
 import com.mogoweb.browser.views.PageIndicator;
 import com.mogoweb.browser.views.TileView;
 
-public class TabScreen extends LinearLayout implements TabManager.Listener {
+public class TabScreen extends RelativeLayout implements TabManager.Listener {
 
     private final Context mContext;
     private final TabManager mTabManager;
+    private ViewPager mTabsPager;
+    private ViewPagerAdapter mTabsAdapter;
 
     public TabScreen(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,50 +59,41 @@ public class TabScreen extends LinearLayout implements TabManager.Listener {
             //set the same listener
             findViewById(id).setOnClickListener(onClickListener);
         }
+
+        mTabsPager = (ViewPager) findViewById(R.id.tabs_list);
+        mTabsAdapter = new ViewPagerAdapter();
+        mTabsPager.setAdapter(mTabsAdapter);
     }
 
     private void updateTabCounter() {
         // Update the tab count
         PageIndicator indicator = (PageIndicator) findViewById(R.id.tabs_page_indicator);
         indicator.setDotCount(mTabManager.getTabsCount());
-    }
-
-    private TileView getTabTile(TabData td) {
-        ViewGroup tilesContainer = ((ViewGroup)findViewById(R.id.home_tabs_layout));
-        return (TileView)tilesContainer.findViewWithTag(td);
+        indicator.setActiveDot(mTabManager.getActiveTabIndex());
     }
 
     @Override
     public void onTabAdded(TabData td, int idx) {
-        ViewGroup tilesContainer = ((ViewGroup)findViewById(R.id.home_tabs_layout));
         TabTileView tv = new TabTileView(mContext, td);
 
         tv.setTag(td);
-        tilesContainer.addView(tv, idx);
-
-        // animate the appearance of the tile
-        AnimationUtils.fadeIn(tv, 300, 50);
-        tv.ensureVisible();
+        mTabsAdapter.addTabView(tv);
 
         updateTabCounter();
     }
 
     @Override
     public void onTabRemoved(TabData td, int idx) {
-        ViewGroup tilesContainer = ((ViewGroup)findViewById(R.id.home_tabs_layout));
-        TileView tv = getTabTile(td);
-        // animate the disappearance of the tile
-        if (tv != null) {
-            AnimationUtils.fadeOut(tv, 300);
-            tilesContainer.removeView(tv);
-        }
+        TileView tv = mTabsAdapter.getTabTile(td);
+        if (tv != null)
+            mTabsAdapter.removeTabView(tv);
 
         updateTabCounter();
     }
 
     @Override
     public void onTabSelected(TabData td, boolean bActive) {
-        TileView tv = getTabTile(td);
+        TileView tv = mTabsAdapter.getTabTile(td);
         if (tv != null)
             tv.setIsActive(bActive);
     }
@@ -105,31 +103,15 @@ public class TabScreen extends LinearLayout implements TabManager.Listener {
     }
 
     private class TabTileView extends TileView {
+        private TabData mTabData;
+
         public TabTileView(Context context, final TabData td) {
             super(context, null, R.attr.tileViewStyle);
             setHasShadow(true);
             setIsActive(td == TabManager.getInstance().getActiveTabData());
             setCloseable(true);
 
-            // create the tile image
-            Bitmap tileBitmap = null;
-            int width = context.getResources().getDimensionPixelSize(R.dimen.TilesSize);
-            int height = width;
-
-            if (td.tab == null || td.tab.getEmbodiment() == Embodiment.E_Welcome) {
-                // use the default browser logo for a non-web tab
-                tileBitmap = DesignShared.getEmptyTabBitmap(getResources());
-            } else {
-                // FIXME : remove once SurfaceTexture is replaced by TextureView
-                // and then use TextureView.getBitmap()
-                tileBitmap = td.tab.getSnapshot(width - 2 * TileView.SHADOW_MARGIN_PX, height - 2 * TileView.SHADOW_MARGIN_PX);
-
-                // change the title of the tile too
-                setTitle(td.tab.getTitle().toString());
-            }
-
-            if (tileBitmap != null)
-                setImageBitmap(tileBitmap);
+            mTabData = td;
 
             setListener( new TileView.Listener () {
                 @Override
@@ -151,26 +133,123 @@ public class TabScreen extends LinearLayout implements TabManager.Listener {
             }
             );
         }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+            // create the tile image
+            Bitmap tileBitmap = null;
+            int width = getMeasuredWidth();
+            int height = getMeasuredHeight();
+
+            if (mTabData.tab == null || mTabData.tab.getEmbodiment() == Embodiment.E_Welcome) {
+                // use the default browser logo for a non-web tab
+                tileBitmap = DesignShared.getEmptyTabBitmap(getResources());
+            } else {
+                // FIXME : remove once SurfaceTexture is replaced by TextureView
+                // and then use TextureView.getBitmap()
+                tileBitmap = mTabData.tab.getSnapshot(width - 2 * TileView.SHADOW_MARGIN_PX, height - 2 * TileView.SHADOW_MARGIN_PX);
+            }
+
+            if (tileBitmap != null)
+                setImageBitmap(tileBitmap);
+
+        }
     }
 
     public void updateTabTiles() {
 
         Logger.debug("in updateTabTiles");
 
-        View createTabButton = findViewById(R.id.home_tiles_new);
-        ViewGroup tilesContainer = ((ViewGroup)findViewById(R.id.home_tabs_layout));
-        tilesContainer.removeAllViews();
+        mTabsAdapter.removeAllTabViews();
 
         int tabsCount = mTabManager.getTabsCount();
-
         for (int i = 0; i < tabsCount; i++) {
             TabData td = mTabManager.getTabData(i);
             TabTileView tv = new TabTileView(mContext, td);
             tv.setTag(td);
 
-            tilesContainer.addView(tv);
+            mTabsAdapter.addTabView(tv);
+        }
+    }
+
+    public class ViewPagerAdapter extends PagerAdapter {
+        private List<View> views = new ArrayList<View>();
+
+        public ViewPagerAdapter(){
         }
 
-        tilesContainer.addView(createTabButton);
+        @Override
+        public void destroyItem(View arg0, int arg1, Object arg2) {
+            ((ViewPager) arg0).removeView(views.get(arg1));
+        }
+
+        @Override
+        public void finishUpdate(View arg0) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public int getCount() {
+            if (views != null) {
+                return views.size();
+            }
+
+            return 0;
+        }
+
+        @Override
+        public Object instantiateItem(View arg0, int arg1) {
+
+            ((ViewPager) arg0).addView(views.get(arg1), 0);
+
+            return views.get(arg1);
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return (arg0 == arg1);
+        }
+
+        @Override
+        public void restoreState(Parcelable arg0, ClassLoader arg1) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public Parcelable saveState() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public void startUpdate(View arg0) {
+            // TODO Auto-generated method stub
+        }
+
+        public void addTabView(View tabView) {
+            views.add(tabView);
+            notifyDataSetChanged();
+        }
+
+        public void removeTabView(View tabView) {
+            views.remove(tabView);
+            notifyDataSetChanged();
+        }
+
+        public void removeAllTabViews() {
+            views.clear();
+        }
+
+        public TileView getTabTile(TabData td) {
+            for (Iterator<View> it = views.iterator(); it.hasNext();) {
+                View v = it.next();
+                if (v.getTag() == td) {
+                    return (TileView)v;
+                }
+            }
+            return null;
+        }
     }
 }

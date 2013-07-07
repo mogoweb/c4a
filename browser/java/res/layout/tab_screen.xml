@@ -7,33 +7,12 @@
     android:background="@drawable/home_content_bg"
     android:orientation="vertical" >
 
-    <HorizontalScrollView
-        style="@style/HomeScrollable"
-        android:id="@+id/home_tabs_list"
-        android:layout_width="fill_parent"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tabs_list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipChildren="false" >
-
-        <LinearLayout
-            android:id="@+id/home_tabs_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:orientation="horizontal" >
-
-            <ImageView
-                style="@style/HomeTile"
-                android:id="@+id/home_tiles_new"
-                android:src="@drawable/newtab_110dp"
-                android:layout_width="@dimen/TilesSize"
-                android:layout_height="@dimen/TilesSize"
-                android:scaleType="center"
-                android:visibility="gone"
-                android:contentDescription="@string/nostring" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+        android:layout_above="@+id/tabs_page_indicator"
+        android:padding="20dp" />
 
     <com.mogoweb.browser.views.PageIndicator
         style="@style/PageIndicator"
@@ -41,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
+        android:layout_above="@+id/tabs_button"
         android:paddingBottom="10dp"
         android:paddingRight="15dp"
         android:paddingTop="25dp"
@@ -48,12 +28,13 @@
         mogoweb:dotType="single" />
 
     <RelativeLayout
+        android:id="@+id/tabs_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="8dp" >
 
         <Button
-            style="@style/HomeCatButton"
             android:id="@+id/home_tabs_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +43,6 @@
             android:drawableLeft="@drawable/home_ic_new"
             android:text="@string/home_new_tab" />
         <Button
-            style="@style/HomeCatButton"
             android:id="@+id/tabs_return_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -351,6 +351,10 @@ public class TabManager implements WebTab.ClientDelegate {
         return mDummyTab;
     }
 
+    public int getActiveTabIndex() {
+        return mActiveTab == null ? -1 : mTabs.indexOf(mActiveTab);
+    }
+
     /**
      * Save the state of TabManager and all open WebTabs to a file
      */

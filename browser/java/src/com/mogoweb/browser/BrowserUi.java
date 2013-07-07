@@ -155,6 +155,8 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         if (mTabManager.getActiveTabData() != null) {
             onTabSelected(mTabManager.getActiveTabData(), true);
         }
+
+        showHomeScreen();
     }
 
     public boolean handleIntent(Intent intent) {
@@ -491,6 +493,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
             hideTabScreen();
             showHomeScreen();
         } else {
+            hideTabScreen();
             hideHomeScreen();
         }
     }

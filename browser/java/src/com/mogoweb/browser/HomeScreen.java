@@ -236,7 +236,6 @@ public class HomeScreen extends ScrollView {
         // won't be slowed down by this after they learn how to operate it.
         int hintDelta = (int) ((300 - 20 * showCounter) * DesignShared.DP_TO_PX);
         if (hintDelta > 0) {
-            AnimationUtils.animateTranslateX(findViewById(R.id.home_tabs_layout), hintDelta, 0, 300 + hintDelta / 2, 0);
             //AnimationUtils.animateTranslateX(mHomeView.findViewById(R.id.home_frequent_layout), hintDelta, 0, 300 + hintDelta / 2, 0);
             AnimationUtils.animateTranslateX(findViewById(R.id.home_bookmarks_layout), hintDelta, 0, 300 + hintDelta / 2, 0);
         }
