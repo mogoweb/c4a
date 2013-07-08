@@ -28,7 +28,6 @@
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.h',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.cc',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.h',
-        '<(DEPTH)/c4a/browser/mogo_stubs.cc',
         '<(DEPTH)/c4a/browser/web_tab.cc',
         '<(DEPTH)/c4a/browser/web_tab.h',
       ],
@@ -52,6 +51,7 @@
       'dependencies': [
         '../../media/media.gyp:media_java',
         '../../chrome/chrome.gyp:chrome_java',
+        '../../third_party/android_tools/android_tools.gyp:android_support_v4',
         'chromium_mogo_paks',
         'libchromium_mogo',
       ],

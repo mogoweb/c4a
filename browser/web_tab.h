@@ -82,6 +82,7 @@ class WebTab : public TabAndroid {
   virtual ~WebTab();
 
  private:
+  JavaObjectWeakGlobalRef java_ref_;
   scoped_ptr<content::WebContents> web_contents_;
   scoped_ptr<chrome::android::ChromeWebContentsDelegateAndroid>
           web_contents_delegate_;

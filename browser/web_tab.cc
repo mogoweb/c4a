@@ -4,6 +4,7 @@
 
 #include "c4a/browser/web_tab.h"
 
+#include "base/android/jni_android.h"
 #include "base/android/jni_string.h"
 #include "base/logging.h"
 #include "chrome/browser/android/chrome_web_contents_delegate_android.h"
@@ -15,7 +16,29 @@
 #include "jni/WebTab_jni.h"
 #include "ui/android/window_android.h"
 
+// Per-tab class to provide access to WindowAndroid object.
+class TabAndroidHelper
+    : public content::WebContentsUserData<TabAndroidHelper> {
+ public:
+  virtual ~TabAndroidHelper() { }
+
+  void SetTabAndroid(TabAndroid* tab_android) { tab_android_ = tab_android; }
+  TabAndroid* GetTabAndroid() { return tab_android_; }
+
+ private:
+  explicit TabAndroidHelper(content::WebContents* web_contents) { }
+  friend class content::WebContentsUserData<TabAndroidHelper>;
+
+  TabAndroid* tab_android_;
+
+  DISALLOW_COPY_AND_ASSIGN(TabAndroidHelper);
+};
+
+DEFINE_WEB_CONTENTS_USER_DATA_KEY(TabAndroidHelper);
+
+using base::android::AttachCurrentThread;
 using base::android::ConvertJavaStringToUTF8;
+using base::android::ConvertUTF16ToJavaString;
 using base::android::ConvertUTF8ToJavaString;
 using base::android::ScopedJavaLocalRef;
 using chrome::android::ChromeWebContentsDelegateAndroid;
@@ -27,10 +50,13 @@ WebTab::WebTab(JNIEnv* env,
                            WebContents* web_contents,
                            WindowAndroid* window_android)
     : TabAndroid(env, obj),
+      java_ref_(env, obj),
       web_contents_(web_contents) {
   InitTabHelpers(web_contents);
   WindowAndroidHelper::FromWebContents(web_contents)->
       SetWindowAndroid(window_android);
+  TabAndroidHelper::CreateForWebContents(web_contents);
+  TabAndroidHelper::FromWebContents(web_contents)->SetTabAndroid(this);
 }
 
 WebTab::~WebTab() {
@@ -38,6 +64,11 @@ WebTab::~WebTab() {
 
 void WebTab::Destroy(JNIEnv* env, jobject obj) {
   delete this;
+}
+
+// static
+TabAndroid* TabAndroid::FromWebContents(content::WebContents* web_contents) {
+  return TabAndroidHelper::FromWebContents(web_contents)->GetTabAndroid();
 }
 
 WebContents* WebTab::GetWebContents() {
@@ -52,7 +83,15 @@ browser_sync::SyncedTabDelegate* WebTab::GetSyncedTabDelegate() {
 void WebTab::OnReceivedHttpAuthRequest(jobject auth_handler,
                                              const string16& host,
                                              const string16& realm) {
-  NOTIMPLEMENTED();
+  JNIEnv* env = AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> obj = java_ref_.get(env);
+  if (obj.is_null())
+    return;
+
+  ScopedJavaLocalRef<jstring> jhost = ConvertUTF16ToJavaString(env, host);
+  ScopedJavaLocalRef<jstring> jrealm = ConvertUTF16ToJavaString(env, realm);
+  Java_WebTab_onReceivedHttpAuthRequest(env, obj.obj(), auth_handler,
+      jhost.obj(), jrealm.obj());
 }
 
 void WebTab::ShowContextMenu(

@@ -360,23 +360,6 @@ public class WebTab extends TabBase implements Tab {
         Logger.debug("creating tab");
 //        mTabBase = new TabBase(mContext, mNativeWebContents, mWindow) {
 //
-//            @Override
-//            public void onReceivedHttpAuthRequest(final ChromeHttpAuthHandler httpAuthHandler, String host, String realm) {
-//                mHttpAuthenticationDialog = new HttpAuthenticationDialog(mContext, host, realm);
-//                mHttpAuthenticationDialog.setOkListener(new HttpAuthenticationDialog.OkListener() {
-//                    public void onOk(String host, String realm, String username, String password) {
-//                        httpAuthHandler.proceed(username, password);
-//                        mHttpAuthenticationDialog = null;
-//                    }
-//                });
-//                mHttpAuthenticationDialog.setCancelListener(new HttpAuthenticationDialog.CancelListener() {
-//                    public void onCancel() {
-//                        httpAuthHandler.cancel();
-//                        mHttpAuthenticationDialog = null;
-//                    }
-//                });
-//                mHttpAuthenticationDialog.show();
-//            }
 //        };
 
 //        // Restore Tab state
@@ -432,6 +415,24 @@ public class WebTab extends TabBase implements Tab {
         if (url == null) return url;
         if (url.startsWith("www.") || url.indexOf(":") == -1) url = "http://" + url;
         return url;
+    }
+
+    @CalledByNative
+    public void onReceivedHttpAuthRequest(final ChromeHttpAuthHandler httpAuthHandler, String host, String realm) {
+        mHttpAuthenticationDialog = new HttpAuthenticationDialog(mContext, host, realm);
+        mHttpAuthenticationDialog.setOkListener(new HttpAuthenticationDialog.OkListener() {
+            public void onOk(String host, String realm, String username, String password) {
+                httpAuthHandler.proceed(username, password);
+                mHttpAuthenticationDialog = null;
+            }
+        });
+        mHttpAuthenticationDialog.setCancelListener(new HttpAuthenticationDialog.CancelListener() {
+            public void onCancel() {
+                httpAuthHandler.cancel();
+                mHttpAuthenticationDialog = null;
+            }
+        });
+        mHttpAuthenticationDialog.show();
     }
 
 //    @CalledByNative
