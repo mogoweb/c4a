@@ -63,6 +63,13 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
         mTabsPager = (ViewPager) findViewById(R.id.tabs_list);
         mTabsAdapter = new ViewPagerAdapter();
         mTabsPager.setAdapter(mTabsAdapter);
+        mTabsPager.setOnPageChangeListener( new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                PageIndicator indicator = (PageIndicator) findViewById(R.id.tabs_page_indicator);
+                indicator.setActiveDot(position);
+            }
+        });
     }
 
     private void updateTabCounter() {
@@ -230,12 +237,13 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
 
         public void addTabView(View tabView) {
             views.add(tabView);
-            notifyDataSetChanged();
+            mTabsPager.setCurrentItem(views.size() - 1);
         }
 
         public void removeTabView(View tabView) {
+            mTabsPager.setAdapter(null);
             views.remove(tabView);
-            notifyDataSetChanged();
+            mTabsPager.setAdapter(this);
         }
 
         public void removeAllTabViews() {

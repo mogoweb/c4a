@@ -79,7 +79,7 @@ public class WebTab extends TabBase implements Tab {
     private ContentView mContentView;
     private int mNativeWebTab;
     private CleanupReference mCleanupReference;
-    
+
     public interface ClientDelegate {
         boolean addNewContents(int nativeSourceWebContents, int nativeWebContents,
                 int disposition, Rect initialPosition, boolean userGesture);
@@ -87,7 +87,7 @@ public class WebTab extends TabBase implements Tab {
 
     public WebTab(Activity activity, Intention args) {
         super(WebApplicationGlue.getWindowAndroid());
-        
+
         mContext = activity;
         mNativeWebContents = args.mNativeWebContents;
         mRestoredState = args.mState;
@@ -359,15 +359,6 @@ public class WebTab extends TabBase implements Tab {
 
         Logger.debug("creating tab");
 //        mTabBase = new TabBase(mContext, mNativeWebContents, mWindow) {
-//            @Override
-//            public boolean addNewContents(int nativeSourceWebContents, int nativeWebContents,
-//                    int disposition, boolean userGesture) {
-//                if (mClientDelegate != null) {
-//                    return mClientDelegate.addNewContents(nativeSourceWebContents, nativeWebContents,
-//                            disposition, null, userGesture);
-//                }
-//                return false;
-//            }
 //
 //            @Override
 //            public void onReceivedHttpAuthRequest(final ChromeHttpAuthHandler httpAuthHandler, String host, String realm) {
@@ -472,7 +463,7 @@ public class WebTab extends TabBase implements Tab {
     public ContentView getContentView() {
         return mContentView;
     }
-    
+
     private void destroyContentView() {
         if (mContentView == null) return;
 
@@ -484,7 +475,7 @@ public class WebTab extends TabBase implements Tab {
     public String getSnapshotFilename() {
         return mRestoredSnapshotFilename;
     }
-    
+
     private static final class DestroyRunnable implements Runnable {
         private final int mNativeWebTab;
         private DestroyRunnable(int nativeWebTab) {
@@ -508,7 +499,7 @@ public class WebTab extends TabBase implements Tab {
                     li.onLoadProgressChanged(progress);
             }
         }
-        
+
         @Override
         public void onUpdateUrl(String url) {
             setUrl(url);
@@ -516,18 +507,28 @@ public class WebTab extends TabBase implements Tab {
             for (Tab.Listener li : mListeners)
                 li.onUpdateUrl(url);
         }
-        
+
         @Override
         public void onLoadStarted() {
 //            mIsLoading = true;
         }
-        
+
         @Override
         public void onLoadStopped() {
 //            mIsLoading = false;
         }
+
+        @Override
+        public boolean addNewContents(int nativeSourceWebContents, int nativeWebContents,
+                int disposition, Rect initialPosition, boolean userGesture) {
+            if (mClientDelegate != null) {
+                return mClientDelegate.addNewContents(nativeSourceWebContents, nativeWebContents,
+                        disposition, null, userGesture);
+            }
+            return false;
+        }
     }
-    
+
     private native int nativeInit(int webContentsPtr, int windowAndroidPtr);
     private static native void nativeDestroy(int nativeWebTab);
     private native void nativeInitWebContentsDelegate(int nativeWebTab,
