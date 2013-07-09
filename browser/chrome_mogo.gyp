@@ -28,6 +28,8 @@
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.h',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.cc',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.h',
+        '<(DEPTH)/c4a/browser/web_settings.cc',
+        '<(DEPTH)/c4a/browser/web_settings.h',
         '<(DEPTH)/c4a/browser/web_tab.cc',
         '<(DEPTH)/c4a/browser/web_tab.h',
       ],
@@ -73,6 +75,7 @@
       'target_name': 'chromium_mogo_jni_headers',
       'type': 'none',
       'sources': [
+        'java/src/com/mogoweb/browser/web/WebSettings.java',
         'java/src/com/mogoweb/browser/web/WebTab.java',
       ],
       'variables': {

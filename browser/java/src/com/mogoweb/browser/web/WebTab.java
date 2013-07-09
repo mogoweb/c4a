@@ -9,27 +9,18 @@ package com.mogoweb.browser.web;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.chromium.base.CalledByNative;
-import org.chromium.base.JNINamespace;
 import org.chromium.chrome.browser.ChromeHttpAuthHandler;
 import org.chromium.chrome.browser.ChromeWebContentsDelegateAndroid;
 import org.chromium.chrome.browser.ContentViewUtil;
 import org.chromium.chrome.browser.TabBase;
 import org.chromium.content.browser.ContentView;
-import org.chromium.content.browser.ContentViewRenderView;
 import org.chromium.content.browser.LoadUrlParams;
 import org.chromium.content.browser.WebContentsObserverAndroid;
 import org.chromium.content.common.CleanupReference;
-import org.chromium.ui.WindowAndroid;
-
-import com.mogoweb.browser.HttpAuthenticationDialog;
-import com.mogoweb.browser.Intention;
-import com.mogoweb.browser.Tab;
-import com.mogoweb.browser.utils.Logger;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,7 +31,12 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.view.View;
+
+import com.mogoweb.browser.HttpAuthenticationDialog;
+import com.mogoweb.browser.Intention;
+import com.mogoweb.browser.Tab;
+import com.mogoweb.browser.preferences.BrowserPreferences;
+import com.mogoweb.browser.utils.Logger;
 
 /**
  * The basic Java representation of a tab.  Contains and manages a {@link ContentView}.
@@ -77,6 +73,7 @@ public class WebTab extends TabBase implements Tab {
 
     private ChromeWebContentsDelegateAndroid mWebContentsDelegate;
     private ContentView mContentView;
+    private WebSettings mSettings; // settings for web
     private int mNativeWebTab;
     private CleanupReference mCleanupReference;
 
@@ -305,6 +302,13 @@ public class WebTab extends TabBase implements Tab {
                 ContentView.PERSONALITY_CHROME);
         mNativeWebTab = nativeInit(mNativeWebContents, getWindowAndroid().getNativePointer());
 
+        mSettings = new WebSettings(context, mNativeWebContents, true);
+
+        // load websettings from BrowserPreferences
+        BrowserPreferences prefs = BrowserPreferences.getInstance();
+        mSettings.setJavaScriptEnabled(prefs.getJavaScriptEnabled());
+        mSettings.setJavaScriptCanOpenWindowsAutomatically(prefs.getPopupsEnabled());
+
         // Build the WebContentsDelegate
         mWebContentsDelegate = new TabBaseChromeWebContentsDelegateAndroid();
         nativeInitWebContentsDelegate(mNativeWebTab, mWebContentsDelegate);
@@ -470,6 +474,11 @@ public class WebTab extends TabBase implements Tab {
 
         mContentView.destroy();
         mContentView = null;
+    }
+
+    // Can be called from any thread.
+    public WebSettings getSettings() {
+        return mSettings;
     }
 
     @Override

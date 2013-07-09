@@ -102,11 +102,11 @@ public class BrowserPreferences {
 
                 if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)){
                     mJavaScriptEnabled = enabled;
-//                    webTab.getContentView().getContentSettings().setJavaScriptEnabled(enabled);
+                    webTab.getSettings().setJavaScriptEnabled(enabled);
                 }
                 else if (key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)) {
                     mAllowPopupsEnabled = enabled;
-//                    webTab.getContentView().getContentSettings().setJavaScriptCanOpenWindowsAutomatically(enabled);
+                    webTab.getSettings().setJavaScriptCanOpenWindowsAutomatically(enabled);
                 }
             }
        }
