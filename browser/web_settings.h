@@ -21,6 +21,7 @@ class WebSettings : public content::WebContentsObserver {
   void Destroy(JNIEnv* env, jobject obj);
   void SetWebContents(JNIEnv* env, jobject obj, jint web_contents);
   void UpdateEverything(JNIEnv* env, jobject obj);
+  void UpdateUserAgent(JNIEnv* env, jobject obj);
   void UpdateWebkitPreferences(JNIEnv* env, jobject obj);
  private:
   struct FieldIds;

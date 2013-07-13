@@ -33,26 +33,21 @@ package com.mogoweb.browser.preferences;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import org.chromium.base.AccessedByNative;
-import org.chromium.base.CalledByNative;
-import org.chromium.base.JNINamespace;
-
 import com.mogoweb.browser.Tab;
 import com.mogoweb.browser.Tab.Embodiment;
 import com.mogoweb.browser.TabManager;
 import com.mogoweb.browser.utils.Logger;
+import com.mogoweb.browser.web.WebSettings;
 import com.mogoweb.browser.web.WebTab;
 
-@JNINamespace("content")
 public class BrowserPreferences {
     private final Context mContext;
     private static BrowserPreferences browserPrefs;
     private final TabManager mTabManager;
 
-    @AccessedByNative
     private static boolean mJavaScriptEnabled = true;
-    @AccessedByNative
     private static boolean mAllowPopupsEnabled = false;
+    private static String mUserAgent = "";
 
     public static BrowserPreferences create(Context context) {
         if (browserPrefs == null) {
@@ -80,6 +75,7 @@ public class BrowserPreferences {
         //set preferences based on user settings menu
         mJavaScriptEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, true);
         mAllowPopupsEnabled = !(PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_BLOCK_POPUPS, true));
+        mUserAgent = PreferenceManager.getDefaultSharedPreferences(mContext).getString(PreferenceKeys.PREF_USER_AGENT, "");
     }
 
     public boolean getJavaScriptEnabled() {
@@ -90,7 +86,18 @@ public class BrowserPreferences {
         return mAllowPopupsEnabled;
     }
 
-    //overload this method if/when we have a preference value other than boolean
+    public String getUserAgentString() {
+        if (mUserAgent.equals("0")) {
+            return WebSettings.getDefaultUserAgent();
+        } else if (mUserAgent.equals("1")) {
+            return "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31";
+        } else if (mUserAgent.equals("2")) {
+            return "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25";
+        }
+
+        return WebSettings.getDefaultUserAgent();
+    }
+
     public void setPreference(String key, boolean enabled) {
         WebTab webTab;
         Tab tab;
@@ -112,8 +119,21 @@ public class BrowserPreferences {
        }
     }
 
-    @CalledByNative
-    private static Boolean getPreferenceBoolean(String title) {
-        return true;
+    public void setPreference(String key, String value) {
+        WebTab webTab;
+        Tab tab;
+
+        for (int i = 0; i < mTabManager.getTabsCount(); i++) {
+            tab = mTabManager.getTabData(i).tab;
+            if (tab.getEmbodiment() == Embodiment.E_Web) {
+                webTab = (WebTab)tab;
+
+                if (key.equals(PreferenceKeys.PREF_USER_AGENT)
+                        && !mUserAgent.equals(value)) {
+                    mUserAgent = value;
+                    webTab.getSettings().setUserAgentString(getUserAgentString());
+                }
+            }
+       }
     }
 }

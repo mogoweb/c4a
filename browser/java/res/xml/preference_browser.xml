@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+// Copyright (c) 2013 mogoweb. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:title="@string/pref_category_general_title">
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/pref_category_privacy_title">
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/pref_category_security_title">
+        <CheckBoxPreference
+                android:key="enable_javascript"
+                android:defaultValue="true"
+                android:title="@string/pref_enable_javascript" />
+        <CheckBoxPreference
+                android:key="block_popups"
+                android:defaultValue="true"
+                android:title="@string/pref_block_popups"
+                android:summary="@string/pref_block_popups_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/pref_category_advanced_title">
+        <PreferenceScreen android:title="@string/pref_developer_tools">
+            <ListPreference android:key="user_agent"
+                    android:title="@string/pref_user_agent"
+                    android:entries="@array/user_agent_options"
+                    android:entryValues="@array/user_agent_options_values"
+                    android:defaultValue="0"
+            />
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

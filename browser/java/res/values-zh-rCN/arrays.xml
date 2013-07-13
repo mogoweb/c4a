@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="user_agent_options">
+        <item>默认</item>
+        <item>桌面</item>
+        <item>iPhone</item>
+    </string-array>
+</resources>

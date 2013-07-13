@@ -104,12 +104,16 @@
     <string name="server_url"></string>
 
     <!-- Preferences -->
-    <string name="pref_basics_title">基本设置</string>
-    <string name="pref_advanced_title">高级</string>
+    <string name="pref_category_general_title">通用</string>
+    <string name="pref_category_privacy_title">隐私</string>
+    <string name="pref_category_security_title">安全</string>
+    <string name="pref_category_advanced_title">高级</string>
+    <string name="pref_clear_browsing_data">清除浏览数据</string>
     <string name="pref_autofill_forms">表单自动填充</string>
     <string name="pref_autofill_forms_summary">只需点击一下，即可填完网络表单</string>
     <string name="pref_enable_javascript">启用JavaScript</string>
     <string name="pref_block_popups">拦截弹出式窗口</string>
     <string name="pref_block_popups_summary">拦截所有站点的弹出式窗口</string>
-
+    <string name="pref_developer_tools">开发者工具</string>
+    <string name="pref_user_agent">浏览器标识(UA)</string>
 </resources>

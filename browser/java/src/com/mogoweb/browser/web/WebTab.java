@@ -308,6 +308,7 @@ public class WebTab extends TabBase implements Tab {
         BrowserPreferences prefs = BrowserPreferences.getInstance();
         mSettings.setJavaScriptEnabled(prefs.getJavaScriptEnabled());
         mSettings.setJavaScriptCanOpenWindowsAutomatically(prefs.getPopupsEnabled());
+        mSettings.setUserAgentString(prefs.getUserAgentString());
 
         // Build the WebContentsDelegate
         mWebContentsDelegate = new TabBaseChromeWebContentsDelegateAndroid();

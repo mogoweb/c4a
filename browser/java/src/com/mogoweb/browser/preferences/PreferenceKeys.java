@@ -43,5 +43,6 @@ public interface PreferenceKeys {
     // ----------------------
     static final String PREF_BLOCK_POPUPS = "block_popups";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
+    static final String PREF_USER_AGENT = "user_agent";
 
 }

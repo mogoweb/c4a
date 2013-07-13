@@ -6,8 +6,11 @@
 
 #include "base/android/jni_android.h"
 #include "base/android/jni_string.h"
+#include "content/public/browser/navigation_controller.h"
+#include "content/public/browser/navigation_entry.h"
 #include "content/public/browser/render_view_host.h"
 #include "content/public/browser/web_contents.h"
+#include "content/public/common/content_client.h"
 #include "jni/WebSettings_jni.h"
 #include "webkit/glue/webpreferences.h"
 
@@ -28,17 +31,20 @@ struct WebSettings::FieldIds {
   FieldIds() { }
 
   FieldIds(JNIEnv* env) {
-//    const char* kStringClassName = "Ljava/lang/String;";
+    const char* kStringClassName = "Ljava/lang/String;";
 
     // FIXME: we should be using a new GetFieldIDFromClassName() with caching.
     ScopedJavaLocalRef<jclass> clazz(
         GetClass(env, "com/mogoweb/browser/web/WebSettings"));
 
+    user_agent =
+            GetFieldID(env, clazz, "mUserAgent", kStringClassName);
     java_script_enabled =
         GetFieldID(env, clazz, "mJavaScriptEnabled", "Z");
   }
 
   // Field ids
+  jfieldID user_agent;
   jfieldID java_script_enabled;
 };
 
@@ -72,6 +78,27 @@ void WebSettings::UpdateEverything() {
 
 void WebSettings::UpdateEverything(JNIEnv* env, jobject obj) {
   UpdateWebkitPreferences(env, obj);
+}
+
+void WebSettings::UpdateUserAgent(JNIEnv* env, jobject obj) {
+  if (!web_contents()) return;
+
+  if (!field_ids_)
+    field_ids_.reset(new FieldIds(env));
+
+  ScopedJavaLocalRef<jstring> str(env, static_cast<jstring>(
+      env->GetObjectField(obj, field_ids_->user_agent)));
+  bool ua_overidden = str.obj() != NULL;
+
+  if (ua_overidden) {
+    std::string override = base::android::ConvertJavaStringToUTF8(str);
+    web_contents()->SetUserAgentOverride(override);
+  }
+
+  const content::NavigationController& controller =
+      web_contents()->GetController();
+  for (int i = 0; i < controller.GetEntryCount(); ++i)
+    controller.GetEntryAtIndex(i)->SetIsOverridingUserAgent(ua_overidden);
 }
 
 void WebSettings::UpdateWebkitPreferences(JNIEnv* env, jobject obj) {
@@ -112,6 +139,11 @@ static jint Init(JNIEnv* env,
   WebSettings* settings = new WebSettings(env, obj);
   settings->SetWebContents(env, obj, web_contents);
   return reinterpret_cast<jint>(settings);
+}
+
+static jstring GetDefaultUserAgent(JNIEnv* env, jclass clazz) {
+  return base::android::ConvertUTF8ToJavaString(
+      env, content::GetUserAgent(GURL())).Release();
 }
 
 bool RegisterWebSettings(JNIEnv* env) {

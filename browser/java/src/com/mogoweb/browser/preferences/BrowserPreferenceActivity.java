@@ -41,14 +41,15 @@ import com.mogoweb.browser.R;
 
 public class BrowserPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
-    @Override
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.layout.preference_headers, target);
-    }
+    private BrowserPreferences browserPrefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        browserPrefs = BrowserPreferences.getInstance();
+
+        addPreferencesFromResource(R.xml.preference_browser);
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -65,6 +66,16 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    }
 
+        if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)) {
+            boolean prefValue = sharedPreferences.getBoolean(key, true);
+            browserPrefs.setPreference(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, prefValue);
+        } else if (key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)) {
+            boolean prefValue = sharedPreferences.getBoolean(key, true);
+            browserPrefs.setPreference(PreferenceKeys.PREF_BLOCK_POPUPS, prefValue);
+        } else if (key.equals(PreferenceKeys.PREF_USER_AGENT)) {
+            String prefValue = sharedPreferences.getString(key, "");
+            browserPrefs.setPreference(key, prefValue);
+        }
+    }
 }

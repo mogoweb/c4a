@@ -33,11 +33,17 @@ public class WebSettings {
 
     private final Context mContext;
 
+    private String mUserAgent;
     private boolean mJavaScriptEnabled = false;
     private boolean mJavaScriptCanOpenWindowsAutomatically = false;
 
     // Not accessed by the native side.
     private boolean mBlockNetworkLoads;  // Default depends on permission of embedding APK.
+
+    static class LazyDefaultUserAgent{
+        // Lazy Holder pattern
+        private static final String sInstance = nativeGetDefaultUserAgent();
+    }
 
     // The native side of this object.
     private int mNativeWebSettings = 0;
@@ -107,6 +113,7 @@ public class WebSettings {
         assert mNativeWebSettings != 0;
 
         mEventHandler = new EventHandler();
+        mUserAgent = LazyDefaultUserAgent.sInstance;
         nativeUpdateEverything(mNativeWebSettings);
     }
 
@@ -118,6 +125,47 @@ public class WebSettings {
     public void setWebContents(int nativeWebContents) {
         synchronized (mWebSettingsLock) {
             nativeSetWebContents(mNativeWebSettings, nativeWebContents);
+        }
+    }
+
+    /**
+     * @returns the default User-Agent used by each ContentViewCore instance, i.e. unless
+     * overridden by {@link #setUserAgentString()}
+     */
+    public static String getDefaultUserAgent() {
+        return LazyDefaultUserAgent.sInstance;
+    }
+
+    /**
+     * See {@link android.webkit.WebSettings#setUserAgentString}.
+     */
+    public void setUserAgentString(String ua) {
+        synchronized (mWebSettingsLock) {
+            final String oldUserAgent = mUserAgent;
+            if (ua == null || ua.length() == 0) {
+                mUserAgent = LazyDefaultUserAgent.sInstance;
+            } else {
+                mUserAgent = ua;
+            }
+            if (!oldUserAgent.equals(mUserAgent)) {
+                ThreadUtils.runOnUiThreadBlocking(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mNativeWebSettings != 0) {
+                            nativeUpdateUserAgent(mNativeWebSettings);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * See {@link android.webkit.WebSettings#getUserAgentString}.
+     */
+    public String getUserAgentString() {
+        synchronized (mWebSettingsLock) {
+            return mUserAgent;
         }
     }
 
@@ -160,5 +208,9 @@ public class WebSettings {
 
     private native void nativeUpdateEverything(int nativeWebSettings);
 
+    private native void nativeUpdateUserAgent(int nativeWebSettings);
+
     private native void nativeUpdateWebkitPreferences(int nativeWebSettings);
+
+    private static native String nativeGetDefaultUserAgent();
 }
