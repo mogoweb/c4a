@@ -30,9 +30,7 @@
 
 package com.mogoweb.browser;
 
-import com.mogoweb.browser.Intention.Type;
-import com.mogoweb.browser.views.smartbox.SearchModel;
-import com.mogoweb.browser.views.smartbox.SmartBox;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -43,17 +41,24 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.regex.Pattern;
+import com.mogoweb.browser.Intention.Type;
+import com.mogoweb.browser.TabManager.TabData;
+import com.mogoweb.browser.views.NumberView;
+import com.mogoweb.browser.views.smartbox.SearchModel;
+import com.mogoweb.browser.views.smartbox.SmartBox;
 
 
-public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickListener, View.OnFocusChangeListener, AdapterView.OnItemClickListener {
+public class ToolbarUi implements TextView.OnEditorActionListener,
+        View.OnClickListener, View.OnFocusChangeListener,
+        AdapterView.OnItemClickListener,
+        TabManager.Listener {
 
     private final Context mContext;
 
     private final SmartBox mSmartBox;
     private final SearchModel mSmartBoxSearchModel;
     private final View mUrlSearchHint;
-    private final ImageButton mButtonTabs;
+    private final NumberView mButtonTabs;
     private final ImageButton mButtonOverflow;
     private final View mUrlPageGroup;
     private final ImageButton mUrlPageStop;
@@ -63,6 +68,8 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
 
     private Listener mListener;
     private boolean mIsLoading;
+
+    private TabManager mTabManager;
 
     interface Listener {
 
@@ -101,7 +108,7 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
 
         mSmartBox = (SmartBox) rootView.findViewById(R.id.toolbar_url_editor);
         mUrlSearchHint = rootView.findViewById(R.id.toolbar_url_hint);
-        mButtonTabs = (ImageButton) rootView.findViewById(R.id.toolbar_btn_tabs);
+        mButtonTabs = (NumberView) rootView.findViewById(R.id.toolbar_btn_tabs);
         mButtonOverflow = (ImageButton) rootView.findViewById(R.id.toolbar_btn_overflow);
         mUrlPageGroup = rootView.findViewById(R.id.toolbar_url_loader);
         mUrlPageStop = (ImageButton) rootView.findViewById(R.id.toolbar_url_stop);
@@ -127,6 +134,9 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         mSmartBox.setOnItemClickListener(this);
 
         setCurrentProgress(0);
+
+        mTabManager = TabManager.getInstance();
+        mTabManager.addListener(this);
     }
 
     public void setListener(Listener listener) {
@@ -272,4 +282,26 @@ public class ToolbarUi implements TextView.OnEditorActionListener, View.OnClickL
         mUrlPageReload.setVisibility((notEditing && !mIsLoading) ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void onTabAdded(TabData td, int idx) {
+        updateTabCounter();
+    }
+
+    @Override
+    public void onTabRemoved(TabData td, int idx) {
+        updateTabCounter();
+    }
+
+    @Override
+    public void onTabSelected(TabData td, boolean bActive) {
+
+    }
+
+    @Override
+    public void onTabShow(TabData tab) {
+    }
+
+    private void updateTabCounter() {
+        mButtonTabs.setNumber(Integer.toString(mTabManager.getTabsCount()));
+    }
 }

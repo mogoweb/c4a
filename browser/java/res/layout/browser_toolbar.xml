@@ -45,7 +45,7 @@
         android:layout_alignParentRight="true"
         android:contentDescription="@string/nostring" />
 
-    <ImageButton
+    <com.mogoweb.browser.views.NumberView
         style="@style/ToolbarButton"
         android:id="@+id/toolbar_btn_tabs"
         android:src="@drawable/ic_menu_tabs"
