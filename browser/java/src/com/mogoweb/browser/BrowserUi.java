@@ -78,6 +78,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private final BookmarkManager mBookmarkManager;
     private final ToolbarUi mToolbarUi;
     private final BrowserPreferences mBrowserPrefs;
+    private final MemoryMonitor mMemoryMonitor;
 
     // views referenced
     private HomeScreen mHomeView;
@@ -122,6 +123,8 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mBookmarkManager = BookmarkManager.create(mContext);
 
         mBrowserPrefs = BrowserPreferences.create(mContext.getApplicationContext());
+
+        mMemoryMonitor = MemoryMonitor.create(mContext);
 
         // inflate the main layout and reference the sub-components
         mActivity.setContentView(R.layout.main);
@@ -474,11 +477,11 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
 
         if (td.tab instanceof WebTab) {
             Logger.debug("show new tab");
+            td.tab.onShow();
             ContentView contentView = td.tab.getContentView();
             mRenderTarget.setCurrentContentView(contentView);
             mTabContainer.addView(contentView);
             mOldTabView = contentView;
-            td.tab.onShow();
         }
 
         td.tab.addListener(this);

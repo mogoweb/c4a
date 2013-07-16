@@ -64,6 +64,10 @@ class WebTab : public TabAndroid {
 
   virtual void RunExternalProtocolDialog(const GURL& url) OVERRIDE;
 
+  base::android::ScopedJavaLocalRef<jbyteArray> GetOpaqueState(
+      JNIEnv* env, jobject obj);
+  jboolean RestoreState(JNIEnv* env, jobject obj, jbyteArray state);
+
   // Register the Tab's native methods through JNI.
   static bool RegisterWebTab(JNIEnv* env);
 

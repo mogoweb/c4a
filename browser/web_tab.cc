@@ -5,8 +5,11 @@
 #include "c4a/browser/web_tab.h"
 
 #include "base/android/jni_android.h"
+#include "base/android/jni_array.h"
 #include "base/android/jni_string.h"
 #include "base/logging.h"
+#include "base/pickle.h"
+#include "c4a/browser/state_serializer.h"
 #include "chrome/browser/android/chrome_web_contents_delegate_android.h"
 #include "chrome/browser/net/url_fixer_upper.h"
 #include "chrome/browser/ui/android/window_android_helper.h"
@@ -143,6 +146,36 @@ ScopedJavaLocalRef<jstring> WebTab::FixupUrl(JNIEnv* env,
     fixed_spec = fixed_url.spec();
 
   return ConvertUTF8ToJavaString(env, fixed_spec);
+}
+
+base::android::ScopedJavaLocalRef<jbyteArray>
+WebTab::GetOpaqueState(JNIEnv* env, jobject obj) {
+  // Required optimization in WebViewClassic to not save any state if
+  // there has been no navigations.
+  if (!web_contents_->GetController().GetEntryCount())
+    return ScopedJavaLocalRef<jbyteArray>();
+
+  Pickle pickle;
+  if (!WriteToPickle(*web_contents_, &pickle)) {
+    return ScopedJavaLocalRef<jbyteArray>();
+  } else {
+    return base::android::ToJavaByteArray(env,
+       reinterpret_cast<const uint8*>(pickle.data()), pickle.size());
+  }
+}
+
+jboolean WebTab::RestoreState(
+    JNIEnv* env, jobject obj, jbyteArray state) {
+  // TODO(boliu): This copy can be optimized out if this is a performance
+  // problem.
+  std::vector<uint8> state_vector;
+  base::android::JavaByteArrayToByteVector(env, state, &state_vector);
+
+  Pickle pickle(reinterpret_cast<const char*>(state_vector.begin()),
+                state_vector.size());
+  PickleIterator iterator(pickle);
+
+  return RestoreFromPickle(&iterator, web_contents_.get());
 }
 
 static jint Init(JNIEnv* env,

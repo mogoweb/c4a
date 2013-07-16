@@ -33,6 +33,7 @@ package com.mogoweb.browser.preferences;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
+import com.mogoweb.browser.MemoryMonitor;
 import com.mogoweb.browser.Tab;
 import com.mogoweb.browser.Tab.Embodiment;
 import com.mogoweb.browser.TabManager;
@@ -48,6 +49,7 @@ public class BrowserPreferences {
     private static boolean mJavaScriptEnabled = true;
     private static boolean mAllowPopupsEnabled = false;
     private static String mUserAgent = "";
+    private static boolean mMemoryMonitorEnabled = true;
 
     public static BrowserPreferences create(Context context) {
         if (browserPrefs == null) {
@@ -76,6 +78,7 @@ public class BrowserPreferences {
         mJavaScriptEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, true);
         mAllowPopupsEnabled = !(PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_BLOCK_POPUPS, true));
         mUserAgent = PreferenceManager.getDefaultSharedPreferences(mContext).getString(PreferenceKeys.PREF_USER_AGENT, "");
+        mMemoryMonitorEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR, true);
     }
 
     public boolean getJavaScriptEnabled() {
@@ -98,25 +101,35 @@ public class BrowserPreferences {
         return WebSettings.getDefaultUserAgent();
     }
 
+    public boolean getMemoryMonitorEnabled() {
+        return mMemoryMonitorEnabled;
+    }
+
     public void setPreference(String key, boolean enabled) {
         WebTab webTab;
         Tab tab;
 
-        for (int i = 0; i < mTabManager.getTabsCount(); i++) {
-            tab = mTabManager.getTabData(i).tab;
-            if (tab.getEmbodiment() == Embodiment.E_Web) {
-                webTab = (WebTab)tab;
+        // No need to call this per tab bases.
+        if (key.equals(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR)) {
+            mMemoryMonitorEnabled = enabled;
+            MemoryMonitor.getInstance().updateListener();
+        } else {
+            for (int i = 0; i < mTabManager.getTabsCount(); i++) {
+                tab = mTabManager.getTabData(i).tab;
+                if (tab.getEmbodiment() == Embodiment.E_Web) {
+                    webTab = (WebTab)tab;
 
-                if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)){
-                    mJavaScriptEnabled = enabled;
-                    webTab.getSettings().setJavaScriptEnabled(enabled);
-                }
-                else if (key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)) {
-                    mAllowPopupsEnabled = enabled;
-                    webTab.getSettings().setJavaScriptCanOpenWindowsAutomatically(enabled);
+                    if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)){
+                        mJavaScriptEnabled = enabled;
+                        webTab.getSettings().setJavaScriptEnabled(enabled);
+                    }
+                    else if (key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)) {
+                        mAllowPopupsEnabled = enabled;
+                        webTab.getSettings().setJavaScriptCanOpenWindowsAutomatically(enabled);
+                    }
                 }
             }
-       }
+        }
     }
 
     public void setPreference(String key, String value) {

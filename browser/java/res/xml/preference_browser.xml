@@ -32,7 +32,11 @@
                     android:entryValues="@array/user_agent_options_values"
                     android:defaultValue="0"
             />
-
+            <CheckBoxPreference
+                    android:key="enable_memory_monitor"
+                    android:defaultValue="true"
+                    android:title="@string/pref_enable_memory_monitor"
+            />
         </PreferenceScreen>
     </PreferenceCategory>
 

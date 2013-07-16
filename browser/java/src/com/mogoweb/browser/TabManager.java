@@ -31,26 +31,23 @@
 
 package com.mogoweb.browser;
 
-import java.util.List;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.StringBuilder;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import org.chromium.base.CalledByNative;
+import org.chromium.base.JNINamespace;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import org.chromium.base.CalledByNative;
-import org.chromium.base.JNINamespace;
-import com.mogoweb.browser.Intention.Type;
-import com.mogoweb.browser.Tab.Embodiment;
-import com.mogoweb.browser.utils.Logger;
-import com.mogoweb.browser.web.WebTab;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,9 +55,10 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Base64;
 
-import java.util.ArrayList;
-
-@JNINamespace("content")
+import com.mogoweb.browser.Intention.Type;
+import com.mogoweb.browser.Tab.Embodiment;
+import com.mogoweb.browser.utils.Logger;
+import com.mogoweb.browser.web.WebTab;
 
 public class TabManager implements WebTab.ClientDelegate {
     public static final String DEFAULT_SEARCH_QUERY_PREFIX = "http://www.google.com/search?q=";
@@ -88,6 +86,7 @@ public class TabManager implements WebTab.ClientDelegate {
     public class TabData {
         public TabData parent;
         public Tab tab;
+        public Timestamp timestamp;
     }
 
     public interface Listener {
@@ -217,6 +216,11 @@ public class TabManager implements WebTab.ClientDelegate {
 
     public void selectTab(TabData td) {
         setActiveTab(td);
+    }
+
+    private Timestamp getTimestamp() {
+        Date d = new Date();
+        return (new Timestamp(d.getTime()));
     }
 
     private TabData createTab(Embodiment e, Intention args) {
@@ -553,6 +557,7 @@ public class TabManager implements WebTab.ClientDelegate {
         mActiveTab = td;
 
         if (mActiveTab != null) {
+            mActiveTab.timestamp = getTimestamp();
             for (Listener li : mListeners)
                 li.onTabSelected(mActiveTab, true);
         }

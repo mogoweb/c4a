@@ -122,4 +122,5 @@
     <string name="pref_block_popups_summary">Block pop-ups from all sites</string>
     <string name="pref_developer_tools">Developer tools</string>
     <string name="pref_user_agent">User agent</string>
+    <string name="pref_enable_memory_monitor">Use Low Memory</string>
 </resources>

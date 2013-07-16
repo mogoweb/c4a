@@ -50,7 +50,6 @@ public class WebTab extends TabBase implements Tab {
 
     private String mUrl = "";
     private final Context mContext;
-    //private final WebTabLayout mTabLayout;
     private Matrix bitmapMatrix;
     private boolean mLoaded;
     private boolean mUseDesktopUserAgent;
@@ -68,8 +67,11 @@ public class WebTab extends TabBase implements Tab {
 
     // Restored variables
     private byte[] mRestoredState;
-    private final String mRestoredTitle;
+    private String mRestoredTitle;
     private String mRestoredSnapshotFilename;
+    private Bitmap mBitmap;
+
+    boolean mIsTabSaved = false;
 
     private ChromeWebContentsDelegateAndroid mWebContentsDelegate;
     private ContentView mContentView;
@@ -114,6 +116,9 @@ public class WebTab extends TabBase implements Tab {
 
     @Override
     public void onShow() {
+        if(!isNativeActive())
+            restoreContentLayer();
+
         if (mLoaded)
             getContentView().onShow();
     }
@@ -163,9 +168,7 @@ public class WebTab extends TabBase implements Tab {
      */
     @Override
     public byte[] getState() {
-//        return (mNativeTab == 0 ? mRestoredState : nativeGetOpaqueState(mNativeTab));
-        // TODO(alex):
-        return null;
+        return (mNativeWebTab == 0 ? mRestoredState : nativeGetOpaqueState(mNativeWebTab));
     }
 
     @Override
@@ -278,6 +281,40 @@ public class WebTab extends TabBase implements Tab {
         }
     }
 
+    private void saveTabState() {
+        mRestoredState = getState();
+        mRestoredTitle = getTitle();
+        int width, height;
+        width =  mContentView.getWidth();
+        height = mContentView.getHeight();
+        mBitmap = getSnapshot(width, height);
+    }
+
+    public void killContentLayer() {
+        Logger.debug("killContentLayer: Url"+ mUrl);
+        if (isNativeActive()) {
+            saveTabState();
+            onHide();
+            destroy();
+            mIsTabSaved = true;
+        }
+    }
+
+    public void restoreContentLayer() {
+
+        if(!mIsTabSaved)
+            return;
+
+        Logger.debug("restoreContentLayer");
+
+        init(mContext);
+        setupContentsandLoadUrl();
+    }
+
+    public boolean isNativeActive() {
+        return mLoaded;
+    }
+
     /**
      * Should be called when the tab is no longer needed.  Once this is called this tab should not
      * be used.
@@ -363,23 +400,20 @@ public class WebTab extends TabBase implements Tab {
         }
 
         Logger.debug("creating tab");
-//        mTabBase = new TabBase(mContext, mNativeWebContents, mWindow) {
-//
-//        };
 
-//        // Restore Tab state
-//        if (mRestoredState != null) {
-//            if (nativeRestoreState(mNativeTab, mRestoredState)) {
-//                // The onTitleUpdated callback normally happens when a page is
-//                // loaded, but is optimized out in the restore state case because
-//                // the title is already restored. See WebContentsImpl::UpdateTitleForEntry.
-//                // So we call the callback explicitly here.
-//                mWebContentsDelegate.onTitleUpdated();
-//            } else {
-//                Logger.error("WebTab.setupContentsandLoadUrl: Unable to restore state");
-//            }
-//            mRestoredState = null;
-//        }
+        // Restore Tab state
+        if (mRestoredState != null) {
+            if (nativeRestoreState(mNativeWebTab, mRestoredState)) {
+                // The onTitleUpdated callback normally happens when a page is
+                // loaded, but is optimized out in the restore state case because
+                // the title is already restored. See WebContentsImpl::UpdateTitleForEntry.
+                // So we call the callback explicitly here.
+                mWebContentsDelegate.onTitleUpdated();
+            } else {
+                Logger.error("WebTab.setupContentsandLoadUrl: Unable to restore state");
+            }
+            mRestoredState = null;
+        }
 
         // add the contentview to the tab
         getContentView().requestFocus();
@@ -458,12 +492,6 @@ public class WebTab extends TabBase implements Tab {
         }
     }
 
-//    // Returns null if save state fails.
-//    private native byte[] nativeGetOpaqueState(int nativeTab);
-//
-//    // Returns false if restore state fails.
-//    private native boolean nativeRestoreState(int nativeTab, byte[] state);
-
     // Method added for Instrumentation Testing
     @Override
     public ContentView getContentView() {
@@ -475,6 +503,8 @@ public class WebTab extends TabBase implements Tab {
 
         mContentView.destroy();
         mContentView = null;
+        mNativeWebContents = 0;
+        mLoaded = false;
     }
 
     // Can be called from any thread.
@@ -545,4 +575,10 @@ public class WebTab extends TabBase implements Tab {
     private native void nativeInitWebContentsDelegate(int nativeWebTab,
             ChromeWebContentsDelegateAndroid chromeWebContentsDelegateAndroid);
     private native String nativeFixupUrl(int nativeWebTab, String url);
+
+    // Returns null if save state fails.
+    private native byte[] nativeGetOpaqueState(int nativeWebTab);
+
+    // Returns false if restore state fails.
+    private native boolean nativeRestoreState(int nativeWebTab, byte[] state);
 }
