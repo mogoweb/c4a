@@ -36,7 +36,8 @@
     <string name="nostring"></string>
     <string name="search_hint">搜索或输入网址</string>
     <string name="home_tabs">OPEN TABS</string>
-    <string name="home_new_tab">NEW</string>
+    <string name="home_new_tab">新网页</string>
+    <string name="home_return_tab">完成</string>
     <string name="home_frequent_pages">PAGES YOU VISIT OFTEN</string>
     <string name="home_frequent_clear">CLEAR</string>
     <string name="home_bookmarks">BOOKMARKS</string>

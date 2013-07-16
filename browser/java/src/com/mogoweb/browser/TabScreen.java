@@ -87,6 +87,8 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
         mTabsAdapter.addTabView(tv);
 
         updateTabCounter();
+
+        mTabManager.showTab(td);
     }
 
     @Override
@@ -179,6 +181,8 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
 
             mTabsAdapter.addTabView(tv);
         }
+
+        mTabsPager.setCurrentItem(mTabManager.getActiveTabIndex());
     }
 
     public class ViewPagerAdapter extends PagerAdapter {
@@ -237,7 +241,6 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
 
         public void addTabView(View tabView) {
             views.add(tabView);
-            mTabsPager.setCurrentItem(views.size() - 1);
         }
 
         public void removeTabView(View tabView) {

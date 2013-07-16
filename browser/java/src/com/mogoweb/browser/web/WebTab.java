@@ -31,6 +31,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 
 import com.mogoweb.browser.HttpAuthenticationDialog;
 import com.mogoweb.browser.Intention;
@@ -270,6 +271,9 @@ public class WebTab extends TabBase implements Tab {
                         }
                         fis.close();
                     }
+                } else {
+                    if (mBitmap != null)
+                        bitmap = mBitmap;
                 }
             }
             return bitmap;
@@ -287,6 +291,12 @@ public class WebTab extends TabBase implements Tab {
         int width, height;
         width =  mContentView.getWidth();
         height = mContentView.getHeight();
+        if (width == 0 || height == 0) {
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            width = displaymetrics.widthPixels;
+            height = displaymetrics.heightPixels;
+        }
         mBitmap = getSnapshot(width, height);
     }
 
