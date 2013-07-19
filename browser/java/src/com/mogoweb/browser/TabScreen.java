@@ -98,6 +98,10 @@ public class TabScreen extends RelativeLayout implements TabManager.Listener {
             mTabsAdapter.removeTabView(tv);
 
         updateTabCounter();
+
+        // if all tabs removed, new a welcome tab
+        if (mTabManager.getTabsCount() == 0)
+            mTabManager.setTabIntention(new Intention(Type.I_Welcome));
     }
 
     @Override

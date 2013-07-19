@@ -172,15 +172,14 @@ public class MemoryMonitor implements TabManager.Listener, Tab.Listener {
     * memory class.
     */
     static int getMaxActiveTabs(Context context) {
-//        // We use device memory class to decide number of active tabs
-//        // (minimum memory class is 16).
-//        ActivityManager am =
-//          (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-//        if(am.getMemoryClass() < 33)
-//          return 1;
-//        else
-//          return 2;
-        return 1;
+        // We use device memory class to decide number of active tabs
+        // (minimum memory class is 16).
+        ActivityManager am =
+          (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if(am.getMemoryClass() < 33)
+          return 1;
+        else
+          return 2;
     }
 
     // Tab.Listener implementation

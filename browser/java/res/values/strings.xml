@@ -114,7 +114,6 @@
     <string name="pref_category_privacy_title">Privacy</string>
     <string name="pref_category_security_title">Security</string>
     <string name="pref_category_advanced_title">Advanced</string>
-    <string name="pref_clear_browsing_data">Clear browsing data</string>
     <string name="pref_autofill_forms">Autofill forms</string>
     <string name="pref_autofill_forms_summary">Fill out web forms with a single touch</string>
     <string name="pref_enable_javascript">Enable JavaScript</string>
@@ -123,4 +122,16 @@
     <string name="pref_developer_tools">Developer tools</string>
     <string name="pref_user_agent">User agent</string>
     <string name="pref_enable_memory_monitor">Use Low Memory</string>
+
+    <!-- clear browsing data -->
+    <string name="clear">Clear</string>
+    <string name="clear_browsing_data_title">Clear browsing data</string>
+    <string name="clear_browsing_data_summary">All browsing data will be deleted</string>
+    <string name="clear_cache_title">Clear the cache</string>
+    <string name="clear_history_title">Clear browsing history</string>
+    <string name="clear_cookies_and_site_data_title">Clear cookies, site data</string>
+    <string name="clear_passwords_title">Clear saved passwords</string>
+    <string name="clear_formdata_title">Clear autofill data</string>
+    <string name="clear_browsing_data_progress_title">Clearing browsing data</string>
+    <string name="clear_browsing_data_progress_message">Please wait...</string>
 </resources>

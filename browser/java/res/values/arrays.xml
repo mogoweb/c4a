@@ -10,4 +10,10 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="clear_browsing_data_items">
+        <item>@string/clear_history_title</item>
+        <item>@string/clear_cache_title</item>
+        <item>@string/clear_cookies_and_site_data_title</item>
+        <item>@string/clear_passwords_title</item>
+    </string-array>
 </resources>

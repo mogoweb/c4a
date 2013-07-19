@@ -109,7 +109,7 @@
     <string name="pref_category_privacy_title">隐私</string>
     <string name="pref_category_security_title">安全</string>
     <string name="pref_category_advanced_title">高级</string>
-    <string name="pref_clear_browsing_data">清除浏览数据</string>
+
     <string name="pref_autofill_forms">表单自动填充</string>
     <string name="pref_autofill_forms_summary">只需点击一下，即可填完网络表单</string>
     <string name="pref_enable_javascript">启用JavaScript</string>
@@ -118,4 +118,16 @@
     <string name="pref_developer_tools">开发者工具</string>
     <string name="pref_user_agent">浏览器标识(UA)</string>
     <string name="pref_enable_memory_monitor">使用小内存模式</string>
+
+    <!-- clear browsing data -->
+    <string name="clear">清除</string>
+    <string name="clear_browsing_data_title">清除浏览数据</string>
+    <string name="clear_browsing_data_summary">系统将删除所有浏览数据</string>
+    <string name="clear_cache_title">清除缓存</string>
+    <string name="clear_history_title">清除浏览历史记录</string>
+    <string name="clear_cookies_and_site_data_title">清除 Cookie 和网站数据</string>
+    <string name="clear_passwords_title">清除已保存的密码</string>
+    <string name="clear_formdata_title">清除自动填充数据</string>
+    <string name="clear_browsing_data_progress_title">正在清除浏览数据</string>
+    <string name="clear_browsing_data_progress_message">请稍候...</string>
 </resources>
