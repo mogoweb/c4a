@@ -4,6 +4,8 @@ import org.chromium.base.CalledByNative;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
 import com.mogoweb.browser.utils.Logger;
 
@@ -46,15 +48,11 @@ public class BrowsingDataRemover {
     // "cached data" includes the http cache and the shader cache.
     private static final int REMOVE_CACHED_DATA = REMOVE_CACHE | REMOVE_SHADER_CACHE;
 
-    private static BrowsingDataRemover sInstance;
-
     private Context mContext;
     private ProgressDialog mWaitingDialog = null;
 
     public static BrowsingDataRemover getInstance(Context context) {
-        if (sInstance == null)
-            sInstance = new BrowsingDataRemover(context);
-        return sInstance;
+        return new BrowsingDataRemover(context);
     }
 
     private BrowsingDataRemover(Context context) {
@@ -96,11 +94,15 @@ public class BrowsingDataRemover {
 
     @CalledByNative
     public void onBrowsingDataRemoverDone() {
-        if (mWaitingDialog != null) {
-            mWaitingDialog.dismiss();
-            mWaitingDialog = null;
-        }
+        mHandler.sendEmptyMessage(0);
     }
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mWaitingDialog.dismiss();
+        }
+    };
 
     private native void nativeClearData(int removeDataMask);
 }
