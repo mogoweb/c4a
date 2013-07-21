@@ -24,6 +24,8 @@
         # This file must always be included in the shared_library step to ensure
         # JNI_OnLoad is exported.
         '<(DEPTH)/chrome/app/android/chrome_jni_onload.cc',
+        '<(DEPTH)/c4a/browser/browsing_data_remover.cc',
+        '<(DEPTH)/c4a/browser/browsing_data_remover.h',
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.cc',
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.h',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.cc',
@@ -77,6 +79,7 @@
       'target_name': 'chromium_mogo_jni_headers',
       'type': 'none',
       'sources': [
+        'java/src/com/mogoweb/browser/BrowsingDataRemover.java',
         'java/src/com/mogoweb/browser/web/WebSettings.java',
         'java/src/com/mogoweb/browser/web/WebTab.java',
       ],

@@ -115,11 +115,7 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
             new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
-                    for (int i = 0; i < selected.length; i++) {
-                        if (selected[i]) {
-                            BrowsingDataRemover.clearData(i);
-                        }
-                    }
+                    BrowsingDataRemover.getInstance(BrowserPreferenceActivity.this).clearData(selected);
                 }
             };
         DialogInterface.OnClickListener cancelListener =

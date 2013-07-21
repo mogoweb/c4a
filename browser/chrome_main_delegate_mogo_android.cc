@@ -6,6 +6,7 @@
 
 #include "base/android/jni_android.h"
 #include "base/android/jni_registrar.h"
+#include "c4a/browser/browsing_data_remover.h"
 #include "c4a/browser/web_settings.h"
 #include "c4a/browser/web_tab.h"
 #include "chrome/browser/search_engines/template_url_prepopulate_data.h"
@@ -13,6 +14,7 @@
 static const char kDefaultCountryCode[] = "US";
 
 static base::android::RegistrationMethod kRegistrationMethods[] = {
+    { "BrowsingDataRemover", RegisterBrowsingDataRemover },
     { "WebSettings", RegisterWebSettings },
     { "WebTab", WebTab::RegisterWebTab },
 };
