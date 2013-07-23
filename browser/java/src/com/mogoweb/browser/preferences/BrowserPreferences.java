@@ -49,7 +49,7 @@ public class BrowserPreferences {
     private static boolean mJavaScriptEnabled = true;
     private static boolean mAllowPopupsEnabled = false;
     private static String mUserAgent = "";
-    private static boolean mMemoryMonitorEnabled = true;
+    private static boolean mMemoryMonitorEnabled = false;
 
     public static BrowserPreferences create(Context context) {
         if (browserPrefs == null) {
@@ -78,7 +78,7 @@ public class BrowserPreferences {
         mJavaScriptEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, true);
         mAllowPopupsEnabled = !(PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_BLOCK_POPUPS, true));
         mUserAgent = PreferenceManager.getDefaultSharedPreferences(mContext).getString(PreferenceKeys.PREF_USER_AGENT, "");
-        mMemoryMonitorEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR, true);
+        mMemoryMonitorEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR, false);
     }
 
     public boolean getJavaScriptEnabled() {

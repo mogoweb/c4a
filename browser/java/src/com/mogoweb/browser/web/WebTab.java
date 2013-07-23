@@ -250,8 +250,10 @@ public class WebTab extends TabBase implements Tab {
 
         try {
             if (getContentView() != null) {
+                Logger.debug("getSnapshot: getContentView() != null");
                 // Get page snapshot
                 bitmap = getContentView().getBitmap(width, height);
+                Logger.debug("getSnapshot: getContentView().getBitmap=" + bitmap);
                 // Remove snapshot file if it exists
                 if (mRestoredSnapshotFilename != null) {
                     File file = mContext.getFileStreamPath(mRestoredSnapshotFilename);
@@ -286,6 +288,7 @@ public class WebTab extends TabBase implements Tab {
     }
 
     private void saveTabState() {
+        Logger.debug("saveTabState");
         mRestoredState = getState();
         mRestoredTitle = getTitle();
         int width, height;
@@ -298,6 +301,7 @@ public class WebTab extends TabBase implements Tab {
             height = displaymetrics.heightPixels;
         }
         mBitmap = getSnapshot(width, height);
+        Logger.debug("saveTabState: getSnapShot(" + width + "," + height + ")" + mBitmap);
     }
 
     public void killContentLayer() {

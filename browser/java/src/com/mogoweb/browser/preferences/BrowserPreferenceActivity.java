@@ -83,12 +83,11 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)) {
+        if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)
+                || key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)
+                || key.equals(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR)) {
             boolean prefValue = sharedPreferences.getBoolean(key, true);
-            browserPrefs.setPreference(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, prefValue);
-        } else if (key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)) {
-            boolean prefValue = sharedPreferences.getBoolean(key, true);
-            browserPrefs.setPreference(PreferenceKeys.PREF_BLOCK_POPUPS, prefValue);
+            browserPrefs.setPreference(key, prefValue);
         } else if (key.equals(PreferenceKeys.PREF_USER_AGENT)) {
             String prefValue = sharedPreferences.getString(key, "");
             browserPrefs.setPreference(key, prefValue);
