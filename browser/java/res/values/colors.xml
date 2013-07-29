@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="infobar_text">#ff000000</color>
+    <color name="infobar_background_separator">#ff797c7f</color>
+</resources>

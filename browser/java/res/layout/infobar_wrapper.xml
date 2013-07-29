@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@color/infobar_background_separator" android:layout_width="fill_parent" android:layout_height="1.0px" />
+    <LinearLayout android:orientation="horizontal" android:id="@+id/infobar_content" android:paddingLeft="@dimen/infobar_padding" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@+id/icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/infobar_padding" android:layout_marginRight="7.0dip" android:layout_marginBottom="@dimen/infobar_padding" />
+        <ImageButton android:id="@+id/close_button" android:background="@null" android:padding="16.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/infobar_dismiss" android:contentDescription="@string/accessibility_infobar_btn_close" />
+    </LinearLayout>
+</merge>

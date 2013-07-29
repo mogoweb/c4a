@@ -13,4 +13,19 @@
     <!-- Link Preview dimensions -->
     <dimen name="link_preview_overlay_radius">0dp</dimen>
 
+    <!-- info bar -->
+    <dimen name="infobar_min_height">44.0dip</dimen>
+    <dimen name="infobar_text_size">16.0sp</dimen>
+    <dimen name="infobar_subtext_size">14.0sp</dimen>
+    <dimen name="infobar_button_text_size">16.0sp</dimen>
+    <dimen name="infobar_padding">6.0dip</dimen>
+    <dimen name="infobar_text_vertical_margin">4.0dip</dimen>
+    <dimen name="infobar_button_padding">15.0dip</dimen>
+
+    <!-- tiles -->
+    <dimen name="TilesSize">128dp</dimen>
+
+    <dimen name="HomeCatText">20sp</dimen>
+    <dimen name="HomeCatText_Small">16sp</dimen>
+    <dimen name="HomeActionText">18sp</dimen>
 </resources>

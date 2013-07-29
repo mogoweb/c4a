@@ -134,4 +134,7 @@
     <string name="clear_formdata_title">Clear autofill data</string>
     <string name="clear_browsing_data_progress_title">Clearing browsing data</string>
     <string name="clear_browsing_data_progress_message">Please wait...</string>
+
+    <!-- info bar -->
+    <string name="accessibility_infobar_btn_close">Close info bar</string>
 </resources>

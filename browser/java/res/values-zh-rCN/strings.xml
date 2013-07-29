@@ -130,4 +130,7 @@
     <string name="clear_formdata_title">清除自动填充数据</string>
     <string name="clear_browsing_data_progress_title">正在清除浏览数据</string>
     <string name="clear_browsing_data_progress_message">请稍候...</string>
+
+    <!-- info bar -->
+    <string name="accessibility_infobar_btn_close">关闭信息栏</string>
 </resources>

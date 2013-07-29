@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout android:paddingTop="@dimen/infobar_padding" android:paddingBottom="@dimen/infobar_padding" android:stretchColumns="2" android:shrinkColumns="0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow android:gravity="center_vertical">
+        <TextView android:id="@+id/infobar_message" android:layout_marginRight="@dimen/infobar_padding" style="@style/InfoBarText" />
+        <Button android:id="@+id/infobar_button" style="@style/InfoBarButton" />
+        <View android:id="@+id/infobar_spacer" android:visibility="invisible" android:layout_height="0.0dip" />
+    </TableRow>
+</TableLayout>

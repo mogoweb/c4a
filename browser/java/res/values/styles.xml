@@ -145,12 +145,29 @@
 
     <color name="ProgressBar">#ff2ab3ff</color>
 
-    <!-- Dimensions -->
+    <!--  info bar -->
+    <style name="InfoBarButton">
+        <item name="android:textSize">@dimen/infobar_button_text_size</item>
+        <item name="android:textColor">@drawable/infobar_button_text</item>
+        <item name="android:background">@drawable/infobar_button_bg</item>
+        <item name="android:paddingLeft">@dimen/infobar_button_padding</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:paddingRight">@dimen/infobar_button_padding</item>
+        <item name="android:paddingBottom">5.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">60.0dip</item>
+        <item name="android:minHeight">36.0dip</item>
+        <item name="android:shadowColor">#ffffffff</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
 
-    <dimen name="TilesSize">128dp</dimen>
-
-    <dimen name="HomeCatText">20sp</dimen>
-    <dimen name="HomeCatText_Small">16sp</dimen>
-    <dimen name="HomeActionText">18sp</dimen>
-
+    <style name="InfoBarText">
+        <item name="android:textSize">@dimen/infobar_text_size</item>
+        <item name="android:textColor">@color/infobar_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
