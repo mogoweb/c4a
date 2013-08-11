@@ -37,7 +37,7 @@
             />
             <CheckBoxPreference
                     android:key="enable_memory_monitor"
-                    android:defaultValue="true"
+                    android:defaultValue="false"
                     android:title="@string/pref_enable_memory_monitor"
             />
         </PreferenceScreen>
