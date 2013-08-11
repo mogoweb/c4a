@@ -43,7 +43,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.chromium.base.CalledByNative;
-import org.chromium.base.JNINamespace;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +69,8 @@ public class TabManager implements WebTab.ClientDelegate {
     private TabData mActiveTab;
     private Tab mDummyTab;
     private final List<Listener> mListeners = new ArrayList<Listener>();
+
+    private int mNativeTabManager;
 
     // Parameters used for saving and restoring Tab state
     private static final String TAB_STATE_FILENAME = "tab_state.json";
@@ -122,6 +123,8 @@ public class TabManager implements WebTab.ClientDelegate {
         sTabManager = this;
 
         mDummyTab = new DummyTab();
+
+        mNativeTabManager = nativeInit();
     }
 
     public void onActivityPause() {
@@ -324,6 +327,7 @@ public class TabManager implements WebTab.ClientDelegate {
         }
     }
 
+    @CalledByNative
     public int getTabsCount() {
         return mTabs.size();
     }
@@ -355,6 +359,7 @@ public class TabManager implements WebTab.ClientDelegate {
         return mDummyTab;
     }
 
+    @CalledByNative
     public int getActiveTabIndex() {
         return mActiveTab == null ? -1 : mTabs.indexOf(mActiveTab);
     }
@@ -613,7 +618,7 @@ public class TabManager implements WebTab.ClientDelegate {
         }
     }
 
-    @CalledByNative
+    //@CalledByNative
     static void createWebContentsDelegateImpl(int nativeWebContents) {
         TabManager tabManager = TabManager.getInstance();
         Intention args = new Intention(Type.I_OpenAndConsume,
@@ -622,4 +627,10 @@ public class TabManager implements WebTab.ClientDelegate {
         tabManager.setTabIntention(args);
     }
 
+    @CalledByNative
+    private void openClearBrowsingData() {
+        BrowsingDataRemover.getInstance(mContext).onClearBrowsingdata();
+    }
+
+    private native int nativeInit();
 }

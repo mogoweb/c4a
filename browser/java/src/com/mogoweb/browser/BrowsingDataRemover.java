@@ -2,8 +2,12 @@ package com.mogoweb.browser;
 
 import org.chromium.base.CalledByNative;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 
@@ -50,6 +54,9 @@ public class BrowsingDataRemover {
 
     private Context mContext;
     private ProgressDialog mWaitingDialog = null;
+
+    boolean[] initSelected = new boolean[] {true, true, true, false};
+    boolean[] selected = new boolean[] {true, true, true, false};
 
     public static BrowsingDataRemover getInstance(Context context) {
         return new BrowsingDataRemover(context);
@@ -103,6 +110,40 @@ public class BrowsingDataRemover {
             mWaitingDialog.dismiss();
         }
     };
+
+    public void onClearBrowsingdata() {
+        Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(R.string.clear_browsing_data_title);
+
+        DialogInterface.OnMultiChoiceClickListener listener =
+            new DialogInterface.OnMultiChoiceClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface,
+                        int which, boolean isChecked) {
+                    selected[which] = isChecked;
+                }
+            };
+        builder.setMultiChoiceItems(R.array.clear_browsing_data_items, initSelected, listener);
+        DialogInterface.OnClickListener clearListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    clearData(selected);
+                }
+            };
+        DialogInterface.OnClickListener cancelListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    dialogInterface.cancel();
+                }
+            };
+        builder.setPositiveButton(R.string.clear, clearListener);
+        builder.setNegativeButton(R.string.cancel, cancelListener);
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
 
     private native void nativeClearData(int removeDataMask);
 }

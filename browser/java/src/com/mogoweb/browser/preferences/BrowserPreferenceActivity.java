@@ -30,17 +30,12 @@
 
 package com.mogoweb.browser.preferences;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.widget.EditText;
 
 import com.mogoweb.browser.BrowsingDataRemover;
 import com.mogoweb.browser.R;
@@ -62,7 +57,7 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
         button_clear_browsing_data.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference arg0) {
-                onClickClearBrowsingData();
+                BrowsingDataRemover.getInstance(BrowserPreferenceActivity.this).onClearBrowsingdata();
 
                 return true;
             }
@@ -92,41 +87,5 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
             String prefValue = sharedPreferences.getString(key, "");
             browserPrefs.setPreference(key, prefValue);
         }
-    }
-
-    boolean[] initSelected = new boolean[] {true, true, true, false};
-    boolean[] selected = new boolean[] {true, true, true, false};
-    private void onClickClearBrowsingData() {
-        Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.clear_browsing_data_title);
-
-        DialogInterface.OnMultiChoiceClickListener listener =
-            new DialogInterface.OnMultiChoiceClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialogInterface,
-                        int which, boolean isChecked) {
-                    selected[which] = isChecked;
-                }
-            };
-        builder.setMultiChoiceItems(R.array.clear_browsing_data_items, initSelected, listener);
-        DialogInterface.OnClickListener clearListener =
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int which) {
-                    BrowsingDataRemover.getInstance(BrowserPreferenceActivity.this).clearData(selected);
-                }
-            };
-        DialogInterface.OnClickListener cancelListener =
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int which) {
-                    dialogInterface.cancel();
-                }
-            };
-        builder.setPositiveButton(R.string.clear, clearListener);
-        builder.setNegativeButton(R.string.cancel, cancelListener);
-        Dialog dialog = builder.create();
-        dialog.show();
     }
 }

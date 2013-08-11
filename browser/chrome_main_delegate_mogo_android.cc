@@ -9,6 +9,7 @@
 #include "base/lazy_instance.h"
 #include "c4a/browser/browsing_data_remover.h"
 #include "c4a/browser/mogo_content_browser_client.h"
+#include "c4a/browser/tab_manager.h"
 #include "c4a/browser/web_settings.h"
 #include "c4a/browser/web_tab.h"
 #include "chrome/browser/search_engines/template_url_prepopulate_data.h"
@@ -17,6 +18,7 @@ static const char kDefaultCountryCode[] = "US";
 
 static base::android::RegistrationMethod kRegistrationMethods[] = {
     { "BrowsingDataRemover", RegisterBrowsingDataRemover },
+    { "TabManager", RegisterTabManager },
     { "WebSettings", RegisterWebSettings },
     { "WebTab", WebTab::RegisterWebTab },
 };

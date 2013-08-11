@@ -34,6 +34,8 @@
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.h',
         '<(DEPTH)/c4a/browser/state_serializer.cc',
         '<(DEPTH)/c4a/browser/state_serializer.h',
+        '<(DEPTH)/c4a/browser/tab_manager.cc',
+        '<(DEPTH)/c4a/browser/tab_manager.h',
         '<(DEPTH)/c4a/browser/web_settings.cc',
         '<(DEPTH)/c4a/browser/web_settings.h',
         '<(DEPTH)/c4a/browser/web_tab.cc',
@@ -82,6 +84,7 @@
       'type': 'none',
       'sources': [
         'java/src/com/mogoweb/browser/BrowsingDataRemover.java',
+        'java/src/com/mogoweb/browser/TabManager.java',
         'java/src/com/mogoweb/browser/web/WebSettings.java',
         'java/src/com/mogoweb/browser/web/WebTab.java',
       ],
