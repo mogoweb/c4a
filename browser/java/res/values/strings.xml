@@ -32,7 +32,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">MogoBrowser</string>
+
+    <!--  menu -->
+    <string name="menu_history">History</string>
     <string name="menu_settings">Settings</string>
+    <string name="menu_about_build">About this build</string>
+
     <string name="nostring"></string>
     <string name="search_hint">Explore or Go To &#8230;</string>
     <string name="home_tabs">OPEN TABS</string>
@@ -74,8 +79,6 @@
       Sorry, this video cannot be played.</string>
     <string name="media_player_error_button">OK</string>
     <string name="media_player_loading_video">Loading video</string>
-    <string name="menu_request_desktop_site">Request desktop site</string>
-    <string name="menu_about_build">About this build</string>
 
     <!-- Bookmark -->
     <string name="name">Title</string>

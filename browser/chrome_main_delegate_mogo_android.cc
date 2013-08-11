@@ -6,7 +6,9 @@
 
 #include "base/android/jni_android.h"
 #include "base/android/jni_registrar.h"
+#include "base/lazy_instance.h"
 #include "c4a/browser/browsing_data_remover.h"
+#include "c4a/browser/mogo_content_browser_client.h"
 #include "c4a/browser/web_settings.h"
 #include "c4a/browser/web_tab.h"
 #include "chrome/browser/search_engines/template_url_prepopulate_data.h"
@@ -18,6 +20,9 @@ static base::android::RegistrationMethod kRegistrationMethods[] = {
     { "WebSettings", RegisterWebSettings },
     { "WebTab", WebTab::RegisterWebTab },
 };
+
+base::LazyInstance<MogoContentBrowserClient>
+    g_mogo_content_browser_client = LAZY_INSTANCE_INITIALIZER;
 
 ChromeMainDelegateAndroid* ChromeMainDelegateAndroid::Create() {
   return new ChromeMainDelegateMogoAndroid();
@@ -40,4 +45,9 @@ bool ChromeMainDelegateMogoAndroid::RegisterApplicationNativeMethods(
 	      base::android::RegisterNativeMethods(env,
 	                                           kRegistrationMethods,
 	                                           arraysize(kRegistrationMethods));
+}
+
+content::ContentBrowserClient*
+    ChromeMainDelegateMogoAndroid::CreateContentBrowserClient() {
+  return &g_mogo_content_browser_client.Get();
 }

@@ -350,7 +350,7 @@ public class WebTab extends TabBase implements Tab {
         if (mNativeWebContents == 0)
             mNativeWebContents = ContentViewUtil.createNativeWebContents(false);
         mContentView = ContentView.newInstance(context, mNativeWebContents, getWindowAndroid(),
-                ContentView.PERSONALITY_CHROME);
+                ContentView.PERSONALITY_VIEW);
         mNativeWebTab = nativeInit(mNativeWebContents, getWindowAndroid().getNativePointer());
 
         mSettings = new WebSettings(context, mNativeWebContents, true);

@@ -28,6 +28,8 @@
         '<(DEPTH)/c4a/browser/browsing_data_remover.h',
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.cc',
         '<(DEPTH)/c4a/browser/chrome_main_delegate_mogo_android.h',
+        '<(DEPTH)/c4a/browser/mogo_content_browser_client.cc',
+        '<(DEPTH)/c4a/browser/mogo_content_browser_client.h',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.cc',
         '<(DEPTH)/c4a/browser/mogo_google_location_settings_helper.h',
         '<(DEPTH)/c4a/browser/state_serializer.cc',

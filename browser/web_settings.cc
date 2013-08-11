@@ -78,6 +78,7 @@ void WebSettings::UpdateEverything() {
 
 void WebSettings::UpdateEverything(JNIEnv* env, jobject obj) {
   UpdateWebkitPreferences(env, obj);
+  UpdateUserAgent(env, obj);
 }
 
 void WebSettings::UpdateUserAgent(JNIEnv* env, jobject obj) {

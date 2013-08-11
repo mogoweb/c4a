@@ -16,6 +16,9 @@ class ChromeMainDelegateMogoAndroid : public ChromeMainDelegateAndroid {
 
   virtual bool RegisterApplicationNativeMethods(JNIEnv* env) OVERRIDE;
 
+ protected:
+  virtual content::ContentBrowserClient* CreateContentBrowserClient() OVERRIDE;
+
  private:
   DISALLOW_COPY_AND_ASSIGN(ChromeMainDelegateMogoAndroid);
 };

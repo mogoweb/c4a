@@ -91,10 +91,10 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private ImageView mMenuBookmark;
     private ImageView mMenuBack;
     private ImageView mMenuForward;
-    private CheckBox mMenuUserAgent;
     private PopupWindow mMenuPopupWindow;
     private Button mMenuAboutBuildButton;
     private Button mMenuSettingsButton;
+    private Button mMenuShowHistoryButton;
 
     // state
     private boolean mHomeViewShown;
@@ -372,24 +372,17 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mMenuBookmark.setOnClickListener(mMenuItemClickListener);
         mMenuForward.setEnabled(mTabManager.getActiveTab().canGoForward());
 
-        mMenuUserAgent = (CheckBox) menuView.findViewById(R.id.menu_desktop_mode);
-        mMenuUserAgent.setOnClickListener(mMenuItemClickListener);
-
         mMenuAboutBuildButton = (Button) menuView.findViewById(R.id.menu_about_build);
         mMenuAboutBuildButton.setOnClickListener(mMenuItemClickListener);
 
         mMenuSettingsButton = (Button) menuView.findViewById(R.id.menu_settings);
         mMenuSettingsButton.setOnClickListener(mMenuItemClickListener);
 
-        final float scale = this.mActivity.getResources().getDisplayMetrics().density;
-        mMenuUserAgent.setPadding(mMenuUserAgent.getPaddingLeft() + (int) (20.0f * scale + 5f),
-                mMenuUserAgent.getPaddingTop(), mMenuUserAgent.getPaddingRight(), mMenuUserAgent.getPaddingBottom());
+        mMenuShowHistoryButton = (Button) menuView.findViewById(R.id.menu_history);
+        mMenuShowHistoryButton.setOnClickListener(mMenuItemClickListener);
 
         // Set the Bookmark if visible
         needsBookMarkUpdate(mTabManager.getActiveTab().getUrl());
-
-        // Update the checkbox
-        mMenuUserAgent.setChecked(mTabManager.getActiveTab().getUseDesktopUserAgent());
 
         mMenuPopupWindow.showAsDropDown(mToolbarUi.getMenuAnchor());
     }
@@ -419,13 +412,11 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
                 addBookmarkDialog();
                 break;
 
-            case R.id.menu_desktop_mode:
-                // Fetch active tab
-                mTabManager.getActiveTab().setUseDesktopUserAgent(!mTabManager.getActiveTab().getUseDesktopUserAgent());
-                break;
-
             case R.id.menu_about_build:
                 displayAboutBuildInformation();
+                break;
+            case R.id.menu_history:
+                displayHistory();
                 break;
 
             case R.id.menu_settings:
@@ -625,6 +616,10 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     */
     private void displayAboutBuildInformation() {
         loadUrlInNewTab("chrome://version");
+    }
+
+    private void displayHistory() {
+        loadUrlInNewTab("chrome://history");
     }
 
 }

@@ -74,24 +74,21 @@
             android:contentDescription="@string/nostring" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/menu_desktop_mode"
+    <Button
+        android:id="@+id/menu_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_button_bg"
-        android:gravity="center_vertical"
-        android:minHeight="48dp"
-        android:paddingLeft="8dp"
-        android:text="@string/menu_request_desktop_site" />
+        android:text="@string/menu_history"/>
 
-     <Button
+    <Button
         android:id="@+id/menu_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_button_bg"
         android:text="@string/menu_settings"/>
 
-        <Button
+    <Button
         android:id="@+id/menu_about_build"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -22,7 +22,6 @@ CHROMIUM_SRC=$(cd "$PROGDIR"/.. && pwd 2>/dev/null)
 
 BUILDTYPE=Debug
 ANDROID_PROJECT_ROOT=android_project
-SHELLVIEW_TEST_PROJECT_ROOT=testshell/javatests
 
 for opt; do
   optarg=$(expr "x$opt" : 'x[^=]*=\(.*\)')
@@ -105,10 +104,12 @@ rsync -avz ${CHROMIUM_SRC}/sync/android/java/src/ ${ANDROID_PROJECT_ROOT}/src/
 
 # chrome res
 rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chromium_mogo/gen/org/chromium/chrome/R.java ${ANDROID_PROJECT_ROOT}/src/org/chromium/chrome/R.java
-rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chrome.pak ${ANDROID_PROJECT_ROOT}/assets
-rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chrome_100_percent.pak ${ANDROID_PROJECT_ROOT}/assets
-rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/locales/en-US.pak ${ANDROID_PROJECT_ROOT}/assets
-rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/resources.pak ${ANDROID_PROJECT_ROOT}/assets
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chrome.pak ${ANDROID_PROJECT_ROOT}/assets/
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chrome_100_percent.pak ${ANDROID_PROJECT_ROOT}/assets/
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/locales/en-US.pak ${ANDROID_PROJECT_ROOT}/assets/
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/locales/zh-CN.pak ${ANDROID_PROJECT_ROOT}/assets/
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/resources.pak ${ANDROID_PROJECT_ROOT}/assets/
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/gen/webkit/devtools_resources.pak ${ANDROID_PROJECT_ROOT}/assets/
 
 # generated NativeLibraries.java
 rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chromium_mogo/native_libraries_java/NativeLibraries.java ${ANDROID_PROJECT_ROOT}/src/org/chromium/content/app/NativeLibraries.java

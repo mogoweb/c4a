@@ -33,6 +33,9 @@
 
     <string name="app_name">MogoBrowser</string>
     <string name="menu_settings">设置</string>
+    <string name="menu_history">历史记录</string>
+    <string name="menu_about_build">关于</string>
+
     <string name="nostring"></string>
     <string name="search_hint">搜索或输入网址</string>
     <string name="home_tabs">OPEN TABS</string>
@@ -74,8 +77,6 @@
       Sorry, this video cannot be played.</string>
     <string name="media_player_error_button">OK</string>
     <string name="media_player_loading_video">Loading video</string>
-    <string name="menu_request_desktop_site">访问电脑版网页</string>
-    <string name="menu_about_build">关于</string>
 
     <!-- Bookmark -->
     <string name="name">标题</string>
