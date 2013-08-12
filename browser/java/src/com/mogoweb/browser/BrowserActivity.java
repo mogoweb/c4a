@@ -29,11 +29,13 @@
  */
 package com.mogoweb.browser;
 
+import org.chromium.chrome.browser.ApplicationLifetime;
 import org.chromium.content.common.CommandLine;
-import com.mogoweb.browser.utils.Logger;
-import com.mogoweb.browser.web.WebApplicationGlue;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -42,7 +44,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 
-public class BrowserActivity extends Activity {
+import com.mogoweb.browser.utils.Logger;
+import com.mogoweb.browser.web.WebApplicationGlue;
+
+public class BrowserActivity extends Activity
+        implements ApplicationLifetime.Observer {
 
     public static final String COMMAND_LINE_FILE = "/data/local/tmp/swe-browser-command-line";
     public static final String COMMAND_LINE_ARGS_KEY = "commandLineArgs";
@@ -50,9 +56,13 @@ public class BrowserActivity extends Activity {
 
     private BrowserUi mUi;
 
+    private Boolean mRestartFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRestartFlag = false;
 
         // Setting up handler for uncaught exception
         Thread.setDefaultUncaughtExceptionHandler(CrashHandler.create(this));
@@ -90,6 +100,8 @@ public class BrowserActivity extends Activity {
         // If we are going to background we should not create another tab.
         if (!mUi.handleIntent(getIntent()) && TabManager.getInstance().getTabsCount() == 0)
             mUi.createNewWelcomeTab();
+
+        ApplicationLifetime.setObserver(this);
     }
 
     @Override
@@ -118,6 +130,9 @@ public class BrowserActivity extends Activity {
         super.onDestroy();
 
         mUi.onDestroy();
+
+        if (mRestartFlag)
+            System.exit(0);
     };
 
     @Override
@@ -169,4 +184,19 @@ public class BrowserActivity extends Activity {
         }
     }
 
+    // implementation of ApplicationLifetime.Observer interface
+    @Override
+    public void onTerminate(boolean restart) {
+        if (restart) {
+            Intent i = new Intent(this, BrowserActivity.class);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarmManger = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            long triggerAtMillis = System.currentTimeMillis() + 3000; // 3s
+            alarmManger.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+
+            mRestartFlag = true;
+            finish();
+        }
+    }
 }
