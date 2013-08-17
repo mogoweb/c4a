@@ -140,4 +140,34 @@
 
     <!-- info bar -->
     <string name="accessibility_infobar_btn_close">Close info bar</string>
+
+    <!-- Dialog title [CHAR LIMIT=25] -->
+    <string name="download_no_sdcard_dlg_title" product="nosdcard">USB storage unavailable</string>
+    <!-- Dialog title -->
+    <string name="download_no_sdcard_dlg_title" product="default">No SD card</string>
+    <!-- Dialog message [CHAR LIMIT=NONE] -->
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard">USB storage is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <!-- Dialog message -->
+    <string name="download_no_sdcard_dlg_msg" product="default">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <!-- Title for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard">USB storage unavailable</string>
+    <!-- Title for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything -->
+    <string name="download_sdcard_busy_dlg_title" product="default">SD card unavailable</string>
+    <!-- Message for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything.  Informs
+            the user how to enable SD card storage [CHAR LIMIT=NONE] -->
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard">The USB storage is busy. To allow downloads, touch Turn Off USB Storage in the notification.</string>
+    <!-- Message for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything.  Informs
+            the user how to enable SD card storage -->
+    <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, touch Turn Off USB Storage in the notification.</string>
+
+    <!-- Toast for a download which cannot begin because the URL is not http or https -->
+    <string name="cannot_download">Can only download \"http\" or \"https\" URLs.</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has not
+            yet begun -->
+    <string name="download_pending">Starting download\u2026</string>
 </resources>

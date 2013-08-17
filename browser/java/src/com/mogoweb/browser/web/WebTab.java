@@ -33,6 +33,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.mogoweb.browser.DownloadHandler;
 import com.mogoweb.browser.HttpAuthenticationDialog;
 import com.mogoweb.browser.Intention;
 import com.mogoweb.browser.Tab;
@@ -364,6 +365,9 @@ public class WebTab extends TabBase implements Tab {
         // Build the WebContentsDelegate
         mWebContentsDelegate = new TabBaseChromeWebContentsDelegateAndroid();
         nativeInitWebContentsDelegate(mNativeWebTab, mWebContentsDelegate);
+
+        // set download delegate
+        mContentView.setDownloadDelegate(DownloadHandler.getInstance((Activity)context));
 
         mWebContentsObserver = new WebContentsObserverAndroid(mContentView.getContentViewCore()) {
             @Override
