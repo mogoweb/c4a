@@ -207,4 +207,12 @@ public class MemoryMonitor implements TabManager.Listener, Tab.Listener {
     @Override
     public void showContextMenu(String url) {}
 
+    @Override
+    public void didStartLoading(String url) {
+    }
+
+    @Override
+    public void didStopLoading(String url) {
+    }
+
 }

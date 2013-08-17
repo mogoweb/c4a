@@ -55,12 +55,14 @@ public interface Tab {
 
     public interface Listener {
         void onLoadProgressChanged(int progress);
-        void onLoadStarted(boolean isMainFrame);
-        void onLoadStopped(boolean isMainFrame);
+        void onLoadStarted(boolean isMainFrame); // Frame loads
+        void onLoadStopped(boolean isMainFrame); // Frame loads
         void onUpdateUrl(String url);
         void didFailLoad(boolean isProvisionalLoad, boolean isMainFrame, int errorCode,
             String description, String failingUrl);
         void showContextMenu(String url);
+        void didStartLoading(String url); // Page Load
+        void didStopLoading(String url); // Page Load
     }
 
     void addListener(Listener li);

@@ -533,6 +533,14 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mActivity.openContextMenu(mTabContainer);
     }
 
+    @Override
+    public void didStartLoading(String url) {
+    }
+
+    @Override
+    public void didStopLoading(String url) {
+    }
+
     private void addBookmarkDialog() {
         // Get the url and title from tab
         String title = null;

@@ -429,10 +429,12 @@ public class TabManager implements WebTab.ClientDelegate {
                     // If WebTab save snapshot file
                     if (tabState != null) {
                         tabSnapshot = tabData.tab.getSnapshot(snapshotWidth, snapshotHeight);
-                        fos = mContext.openFileOutput(snapshotFilename, Context.MODE_PRIVATE);
-                        if (fos != null) {
-                            tabSnapshot.compress(Bitmap.CompressFormat.PNG, 0, fos);
-                            fos.close();
+                        if (tabSnapshot != null) {
+                            fos = mContext.openFileOutput(snapshotFilename, Context.MODE_PRIVATE);
+                            if (fos != null) {
+                                tabSnapshot.compress(Bitmap.CompressFormat.PNG, 0, fos);
+                                fos.close();
+                            }
                         }
                     }
                 }

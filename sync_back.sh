@@ -59,6 +59,6 @@ fi
 
 # chromium_mogo
 rsync -avz ${ANDROID_PROJECT_ROOT}/src/com/mogoweb/browser/ ${CHROMIUM_SRC}/c4a/browser/java/src/com/mogoweb/browser
-rsync -avz ${ANDROID_PROJECT_ROOT}/res/ ${CHROMIUM_SRC}/c4a/browser/java/res
+#rsync -avz ${ANDROID_PROJECT_ROOT}/res/ ${CHROMIUM_SRC}/c4a/browser/java/res
 rsync -avz ${ANDROID_PROJECT_ROOT}/AndroidManifest.xml ${CHROMIUM_SRC}/c4a/browser/java/AndroidManifest.xml
 

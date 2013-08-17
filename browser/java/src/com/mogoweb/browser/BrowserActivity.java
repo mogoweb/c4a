@@ -31,6 +31,7 @@ package com.mogoweb.browser;
 
 import org.chromium.chrome.browser.ApplicationLifetime;
 import org.chromium.content.common.CommandLine;
+import org.chromium.ui.WindowAndroid;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -146,6 +147,12 @@ public class BrowserActivity extends Activity
         super.onConfigurationChanged(newConfig);
 
         // TODO: add code to handle more than just a layout change
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        WindowAndroid window = WebApplicationGlue.getWindowAndroid();
+        if (window != null)
+            window.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

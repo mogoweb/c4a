@@ -111,5 +111,8 @@ rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/locales/zh-CN.pak ${ANDROID_PROJECT_
 rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/resources.pak ${ANDROID_PROJECT_ROOT}/assets/
 rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/gen/webkit/devtools_resources.pak ${ANDROID_PROJECT_ROOT}/assets/
 
+# ui res
+rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/gen/ui_java/res_grit/ ${ANDROID_PROJECT_ROOT}/res/
+
 # generated NativeLibraries.java
 rsync -avz ${CHROMIUM_SRC}/out/${BUILDTYPE}/chromium_mogo/native_libraries_java/NativeLibraries.java ${ANDROID_PROJECT_ROOT}/src/org/chromium/content/app/NativeLibraries.java
