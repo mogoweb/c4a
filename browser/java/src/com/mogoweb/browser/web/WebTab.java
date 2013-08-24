@@ -36,6 +36,7 @@ import android.util.DisplayMetrics;
 import com.mogoweb.browser.DownloadHandler;
 import com.mogoweb.browser.HttpAuthenticationDialog;
 import com.mogoweb.browser.Intention;
+import com.mogoweb.browser.MediaType;
 import com.mogoweb.browser.Tab;
 import com.mogoweb.browser.preferences.BrowserPreferences;
 import com.mogoweb.browser.utils.Logger;
@@ -494,9 +495,7 @@ public class WebTab extends TabBase implements Tab {
 
 //    @CalledByNative
 //    public void showContextMenu(String linkUrl, int mediaType) {
-//        Logger.debug("showContextMenu URL : " + linkUrl + " mediaType : " + mediaType );
-//        for (Tab.Listener li : mListeners)
-//            li.showContextMenu(linkUrl);
+
 //    }
 
     public void handleExternalProtocol(String url) {
@@ -585,6 +584,21 @@ public class WebTab extends TabBase implements Tab {
                         disposition, null, userGesture);
             }
             return false;
+        }
+
+        @Override
+        public boolean showContextMenu(String linkUrl, int mediaType, String linkText,
+                String unfilteredLinkUrl, String srcUrl) {
+            Logger.debug("showContextMenu URL : " + linkUrl + " mediaType : " + mediaType );
+            Logger.debug("text: " + linkText + " unfiltered URL: " + unfilteredLinkUrl);
+            Logger.debug("src URL: " + srcUrl);
+            if (mediaType != MediaType.MEDIA_TYPE_NONE && mediaType != MediaType.MEDIA_TYPE_IMAGE)
+                return false;
+
+            for (Tab.Listener li : mListeners)
+                li.showContextMenu(linkUrl, mediaType, linkText, unfilteredLinkUrl, srcUrl);
+
+            return true;
         }
     }
 

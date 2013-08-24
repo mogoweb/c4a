@@ -170,4 +170,15 @@
             telling their status.  This message states that the download has not
             yet begun -->
     <string name="download_pending">Starting download\u2026</string>
+
+    <string name="contextmenu_open_in_new_tab">Open in new tab</string>
+    <string name="contextmenu_open_in_incognito_tab">Open in incognito tab</string>
+    <string name="contextmenu_copy_link_address">Copy link address</string>
+    <string name="contextmenu_copy_link_text">Copy link text</string>
+    <string name="contextmenu_copy_url">Copy url</string>
+    <string name="contextmenu_save_image">Save image</string>
+    <string name="contextmenu_save_link">Save link</string>
+    <string name="contextmenu_open_image">Open image</string>
+    <string name="contextmenu_open_image_in_new_tab">Open image in new tab</string>
+    <string name="contextmenu_open_original_image_in_new_tab">Open original image in new tab</string>
 </resources>

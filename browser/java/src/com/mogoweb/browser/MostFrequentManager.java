@@ -215,7 +215,8 @@ public class MostFrequentManager extends SQLiteOpenHelper {
             }
         }
         public void onUpdateUrl(String url) {}
-        public void showContextMenu(String url) {}
+        public void showContextMenu(String url, int mediaType, String linkText,
+                String unfilteredLinkUrl, String srcUrl) {}
         public void didFailLoad(boolean isProvisionalLoad, boolean isMainFrame,
                     int errorCode, String description, String failingUrl) {}
         @Override

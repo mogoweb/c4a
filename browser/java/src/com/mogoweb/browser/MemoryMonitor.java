@@ -205,7 +205,8 @@ public class MemoryMonitor implements TabManager.Listener, Tab.Listener {
             String description, String failingUrl) {}
 
     @Override
-    public void showContextMenu(String url) {}
+    public void showContextMenu(String url, int mediaType, String linkText,
+            String unfilteredLinkUrl, String srcUrl) {}
 
     @Override
     public void didStartLoading(String url) {

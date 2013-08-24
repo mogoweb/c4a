@@ -42,6 +42,7 @@ public class AbstractTabListener implements Tab.Listener {
     public void didStartLoading(String url){}
     public void didStopLoading(String url){}
     public void onUpdateUrl(String url) {}
-    public void onLoadProgressChanged(int progress) {};
-    public void showContextMenu(String url) {};
+    public void onLoadProgressChanged(int progress) {}
+    public void showContextMenu(String url, int mediaType, String linkText,
+            String unfilteredLinkUrl, String srcUrl) {}
 }

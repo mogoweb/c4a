@@ -101,6 +101,8 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private boolean mArrivedFromHomeButton;
 
     private String mContextMenuUrl;
+    private int mContextMenuType;
+    private String mContextMenuText;
 
     protected static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
             new FrameLayout.LayoutParams(
@@ -248,17 +250,35 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.webpage_context_menu, menu);
         menu.setHeaderTitle(mContextMenuUrl);
+        if (mContextMenuType == MediaType.MEDIA_TYPE_IMAGE) {
+            menu.setGroupVisible(R.id.IMAGE_MENU, true);
+        } else {
+            menu.setGroupVisible(R.id.IMAGE_MENU, false);
+        }
+
+        MenuItem copyLinkText = menu.findItem(R.id.copy_link_text_context_menu_id);
+        if (mContextMenuText.isEmpty()) {
+            copyLinkText.setVisible(false);
+        } else {
+            copyLinkText.setVisible(true);
+        }
     }
 
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.open_in_new_tab:
+            case R.id.open_in_new_tab_context_menu_id:
                 mTabManager.setTabIntention(new Intention(Type.I_OpenAndConsume, mContextMenuUrl));
                 return true;
-            case R.id.copy_link:
+            case R.id.copy_link_address_context_menu_id: {
                 ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
                 clipboard.setPrimaryClip(ClipData.newPlainText("URL", mContextMenuUrl));
                 return true;
+            }
+            case R.id.copy_link_text_context_menu_id: {
+                ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboard.setPrimaryClip(ClipData.newPlainText("TEXT", mContextMenuText));
+                return true;
+            }
             default:
                 return mActivity.onContextItemSelected(item);
         }
@@ -528,8 +548,11 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     }
 
     @Override
-    public void showContextMenu(String url) {
+    public void showContextMenu(String url, int mediaType, String linkText,
+            String unfilteredLinkUrl, String srcUrl) {
         mContextMenuUrl = url;
+        mContextMenuType = mediaType;
+        mContextMenuText = linkText;
         mActivity.openContextMenu(mTabContainer);
     }
 

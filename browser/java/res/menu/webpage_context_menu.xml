@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+ # Copyright (c) 2013 mogoweb. All rights reserved.
+-->
+<!--
  # Copyright (c) 2013, The Linux Foundation. All rights reserved.
  #
  # Redistribution and use in source and binary forms, with or without
@@ -27,9 +30,25 @@
  # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/open_in_new_tab"
-          android:title="@string/open_in_new_tab"/>
-    <item android:id="@+id/copy_link"
-          android:title="@string/copy_link" />
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/ANCHOR_MENU">
+        <item android:id="@+id/open_in_new_tab_context_menu_id" android:title="@string/contextmenu_open_in_new_tab" />
+        <!--
+        <item android:id="@+id/open_in_incognito_tab_context_menu_id" android:title="@string/contextmenu_open_in_incognito_tab" />
+        -->
+        <item android:id="@+id/copy_link_address_context_menu_id" android:title="@string/contextmenu_copy_link_address" />
+        <item android:id="@+id/copy_link_text_context_menu_id" android:title="@string/contextmenu_copy_link_text" />
+        <!--
+        <item android:id="@+id/save_link_as_context_menu_id" android:title="@string/contextmenu_save_link" />
+        -->
+    </group>
+    <group android:id="@+id/IMAGE_MENU">
+        <!--
+        <item android:id="@+id/save_image_context_menu_id" android:title="@string/contextmenu_save_image" />
+        <item android:id="@+id/open_image_context_menu_id" android:title="@string/contextmenu_open_image" />
+        <item android:id="@+id/open_image_in_new_tab_context_menu_id" android:title="@string/contextmenu_open_image_in_new_tab" />
+        <item android:id="@+id/open_original_image_in_new_tab_context_menu_id" android:title="@string/contextmenu_open_original_image_in_new_tab" />
+        -->
+    </group>
 </menu>

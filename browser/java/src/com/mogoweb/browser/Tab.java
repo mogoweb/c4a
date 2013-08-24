@@ -60,7 +60,8 @@ public interface Tab {
         void onUpdateUrl(String url);
         void didFailLoad(boolean isProvisionalLoad, boolean isMainFrame, int errorCode,
             String description, String failingUrl);
-        void showContextMenu(String url);
+        void showContextMenu(String url, int mediaType, String linkText,
+                String unfilteredLinkUrl, String srcUrl);
         void didStartLoading(String url); // Page Load
         void didStopLoading(String url); // Page Load
     }
