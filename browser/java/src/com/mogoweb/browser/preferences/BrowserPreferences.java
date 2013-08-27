@@ -46,10 +46,11 @@ public class BrowserPreferences {
     private static BrowserPreferences browserPrefs;
     private final TabManager mTabManager;
 
-    private static boolean mJavaScriptEnabled = true;
-    private static boolean mAllowPopupsEnabled = false;
-    private static String mUserAgent = "";
-    private static boolean mMemoryMonitorEnabled = false;
+    private boolean mGeolocationEnabled = true;
+    private boolean mJavaScriptEnabled = true;
+    private boolean mAllowPopupsEnabled = false;
+    private String mUserAgent = "";
+    private boolean mMemoryMonitorEnabled = false;
 
     public static BrowserPreferences create(Context context) {
         if (browserPrefs == null) {
@@ -75,10 +76,15 @@ public class BrowserPreferences {
         browserPrefs = this;
 
         //set preferences based on user settings menu
+        mGeolocationEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_GEOLOCATION, true);
         mJavaScriptEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_JAVASCRIPT, true);
         mAllowPopupsEnabled = !(PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_BLOCK_POPUPS, true));
         mUserAgent = PreferenceManager.getDefaultSharedPreferences(mContext).getString(PreferenceKeys.PREF_USER_AGENT, "");
         mMemoryMonitorEnabled = PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR, false);
+    }
+
+    public boolean getGeolocationEnabled() {
+        return mGeolocationEnabled;
     }
 
     public boolean getJavaScriptEnabled() {
@@ -109,8 +115,11 @@ public class BrowserPreferences {
         WebTab webTab;
         Tab tab;
 
+        if (key.equals(PreferenceKeys.PREF_ENABLE_GEOLOCATION)) {
+            mGeolocationEnabled = enabled;
+        }
         // No need to call this per tab bases.
-        if (key.equals(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR)) {
+        else if (key.equals(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR)) {
             mMemoryMonitorEnabled = enabled;
             MemoryMonitor.getInstance().updateListener();
         } else {

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
+ # Copyright (c) 2013 mogoweb. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+ -->
+<!--
  # Copyright (c) 2013, The Linux Foundation. All rights reserved.
  #
  # Redistribution and use in source and binary forms, with or without
@@ -31,7 +36,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">MogoBrowser</string>
+    <string name="app_name">芒果浏览器</string>
     <string name="menu_settings">设置</string>
     <string name="menu_history">历史记录</string>
     <string name="menu_about_build">关于</string>
@@ -120,6 +125,10 @@
     <string name="pref_user_agent">浏览器标识(UA)</string>
     <string name="pref_enable_memory_monitor">使用小内存模式</string>
 
+    <string name="pref_enable_location_title">启用位置服务</string>
+    <string name="pref_google_location_settings_title">Google 位置信息设置</string>
+    <string name="pref_enable_location_summary">允许网站请求获取您的位置信息</string>
+
     <!-- clear browsing data -->
     <string name="clear">清除</string>
     <string name="clear_browsing_data_title">清除浏览数据</string>
@@ -157,4 +166,15 @@
     <string name="contextmenu_open_image">打开图片</string>
     <string name="contextmenu_open_image_in_new_tab">在新标签页中打开图片</string>
     <string name="contextmenu_open_original_image_in_new_tab">在新标签页中打开原始图片</string>
+
+    <string name="block_popups_title">拦截弹出式窗口</string>
+    <string name="block_popups_summary">拦截所有网站的弹出式窗口</string>
+    <string name="popup_exceptions_title">弹出式窗口例外情况</string>
+    <string name="add_popup_exceptions_title">添加弹出式窗口例外</string>
+    <string name="allow_exception_button">允许</string>
+    <string name="save_exception_button">保存</string>
+    <string name="delete_exception_button">删除</string>
+    <string name="geolocation_settings_page_title">位置信息访问权限</string>
+    <string name="geolocation_settings_page_summary_allowed">此网站有权访问您的位置信息</string>
+    <string name="geolocation_settings_page_summary_not_allowed">此网站无权访问您的位置信息</string>
 </resources>

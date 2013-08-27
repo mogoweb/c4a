@@ -10,12 +10,18 @@
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/pref_category_privacy_title">
+        <CheckBoxPreference
+            android:key="enable_geolocation"
+            android:defaultValue="true"
+            android:title="@string/pref_enable_location_title"
+            android:summary="@string/pref_enable_location_summary" />
         <Preference
             android:title="@string/clear_browsing_data_title"
             android:key="clear_browsing_data" />
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/pref_category_security_title">
+
         <CheckBoxPreference
                 android:key="enable_javascript"
                 android:defaultValue="true"

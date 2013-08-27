@@ -126,6 +126,10 @@
     <string name="pref_user_agent">User agent</string>
     <string name="pref_enable_memory_monitor">Use Low Memory</string>
 
+    <string name="pref_enable_location_title">Enable location</string>
+    <string name="pref_google_location_settings_title">Google location settings</string>
+    <string name="pref_enable_location_summary">Allow sites to request access to your location</string>
+
     <!-- clear browsing data -->
     <string name="clear">Clear</string>
     <string name="clear_browsing_data_title">Clear browsing data</string>
@@ -181,4 +185,17 @@
     <string name="contextmenu_open_image">Open image</string>
     <string name="contextmenu_open_image_in_new_tab">Open image in new tab</string>
     <string name="contextmenu_open_original_image_in_new_tab">Open original image in new tab</string>
+
+    <string name="block_popups_title">Block pop-ups</string>
+    <string name="block_popups_summary">Block pop-ups from all sites</string>
+    <string name="popup_exceptions_title">Pop-up Exceptions</string>
+    <string name="add_popup_exceptions_title">Add Popup Exception</string>
+    <string name="allow_exception_button">Allow</string>
+    <string name="save_exception_button">Save</string>
+    <string name="delete_exception_button">Delete</string>
+
+    <!-- geolocation permission -->
+    <string name="geolocation_settings_page_title">Location access</string>
+    <string name="geolocation_settings_page_summary_allowed">This site can access your location</string>
+    <string name="geolocation_settings_page_summary_not_allowed">"This site can't access your location"</string>
 </resources>

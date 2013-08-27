@@ -84,6 +84,7 @@
       'type': 'none',
       'sources': [
         'java/src/com/mogoweb/browser/BrowsingDataRemover.java',
+        'java/src/com/mogoweb/browser/LocationSettingsHelper.java',
         'java/src/com/mogoweb/browser/TabManager.java',
         'java/src/com/mogoweb/browser/web/WebSettings.java',
         'java/src/com/mogoweb/browser/web/WebTab.java',

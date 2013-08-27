@@ -1,3 +1,6 @@
+// Copyright (c) 2013 mogoweb. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /*
  *  Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
@@ -37,10 +40,7 @@ public interface PreferenceKeys {
     // ----------------------
     static final String PREF_ENABLE_AUTOFILL = "enable_autofill";
 
-
-    // ----------------------
-    // Keys for advanced preferences
-    // ----------------------
+    static final String PREF_ENABLE_GEOLOCATION = "enable_geolocation";
     static final String PREF_BLOCK_POPUPS = "block_popups";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
     static final String PREF_USER_AGENT = "user_agent";

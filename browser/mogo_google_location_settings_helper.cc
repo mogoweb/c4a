@@ -4,13 +4,22 @@
 
 #include "c4a/browser/mogo_google_location_settings_helper.h"
 
+#include "base/android/jni_android.h"
+#include "base/android/jni_string.h"
+#include "jni/LocationSettingsHelper_jni.h"
+
+using base::android::AttachCurrentThread;
+using base::android::ConvertJavaStringToUTF8;
+
 // Factory function
 GoogleLocationSettingsHelper* GoogleLocationSettingsHelper::Create() {
-  return new MogoGoogleLocationSettingsHelper();
+  JNIEnv* env = AttachCurrentThread();
+  return new MogoGoogleLocationSettingsHelper(env);
 }
 
-MogoGoogleLocationSettingsHelper::MogoGoogleLocationSettingsHelper()
-    : GoogleLocationSettingsHelper() {
+MogoGoogleLocationSettingsHelper::MogoGoogleLocationSettingsHelper(JNIEnv* env)
+    : GoogleLocationSettingsHelper(),
+      java_ref_(env, Java_LocationSettingsHelper_getInstance(env, base::android::GetApplicationContext()).obj()) {
 }
 
 MogoGoogleLocationSettingsHelper::
@@ -18,17 +27,46 @@ MogoGoogleLocationSettingsHelper::
 }
 
 std::string MogoGoogleLocationSettingsHelper::GetAcceptButtonLabel() {
-  return "Allow";
+  JNIEnv* env = AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> obj = java_ref_.get(env);
+  if (obj.is_null())
+    return "Allow";
+
+  ScopedJavaLocalRef<jstring> label = Java_LocationSettingsHelper_getAcceptButtonLabel(env, obj.obj());
+  if (label.is_null())
+    return "Allow";
+  else
+    return ConvertJavaStringToUTF8(label);
 }
 
 void MogoGoogleLocationSettingsHelper::ShowGoogleLocationSettings() {
+  JNIEnv* env = AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> obj = java_ref_.get(env);
+  if (obj.is_null())
+    return ;
+
+  Java_LocationSettingsHelper_showGoogleLocationSettings(env, obj.obj());
 }
 
 bool MogoGoogleLocationSettingsHelper::
     IsGoogleAppsLocationSettingEnabled() {
-  return true;
+  JNIEnv* env = AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> obj = java_ref_.get(env);
+  if (obj.is_null())
+    return false;
+
+  return Java_LocationSettingsHelper_isGoogleAppsLocationSettingEnabled(env, obj.obj());
 }
 
 bool MogoGoogleLocationSettingsHelper::IsMasterLocationSettingEnabled() {
-  return true;
+  JNIEnv* env = AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> obj = java_ref_.get(env);
+  if (obj.is_null())
+    return false;
+
+  return Java_LocationSettingsHelper_isMasterLocationSettingEnabled(env, obj.obj());
+}
+
+bool RegisterLocationSettingsHelper(JNIEnv* env) {
+  return RegisterNativesImpl(env);
 }

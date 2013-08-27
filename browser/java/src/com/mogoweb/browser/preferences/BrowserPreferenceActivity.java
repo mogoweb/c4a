@@ -78,7 +78,8 @@ public class BrowserPreferenceActivity extends PreferenceActivity implements OnS
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)
+        if (key.equals(PreferenceKeys.PREF_ENABLE_GEOLOCATION)
+                || key.equals(PreferenceKeys.PREF_ENABLE_JAVASCRIPT)
                 || key.equals(PreferenceKeys.PREF_BLOCK_POPUPS)
                 || key.equals(PreferenceKeys.PREF_ENABLE_MEMORY_MONITOR)) {
             boolean prefValue = sharedPreferences.getBoolean(key, true);

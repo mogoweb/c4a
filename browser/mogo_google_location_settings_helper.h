@@ -5,6 +5,9 @@
 #ifndef C4A_MOGO_MOGO_GOOGLE_LOCATION_SETTINGS_HELPER_H_
 #define C4A_MOGO_MOGO_GOOGLE_LOCATION_SETTINGS_HELPER_H_
 
+#include <jni.h>
+
+#include "base/android/jni_helper.h"
 #include "chrome/browser/android/google_location_settings_helper.h"
 
 // Stub implementation of GoogleLocationSettingsHelper for mogo.
@@ -18,13 +21,17 @@ class MogoGoogleLocationSettingsHelper
   virtual bool IsGoogleAppsLocationSettingEnabled() OVERRIDE;
 
  protected:
-  MogoGoogleLocationSettingsHelper();
+  MogoGoogleLocationSettingsHelper(JNIEnv* env);
   virtual ~MogoGoogleLocationSettingsHelper();
 
  private:
   friend class GoogleLocationSettingsHelper;
 
+  JavaObjectWeakGlobalRef java_ref_;
+
   DISALLOW_COPY_AND_ASSIGN(MogoGoogleLocationSettingsHelper);
 };
+
+bool RegisterLocationSettingsHelper(JNIEnv* env);
 
 #endif  // C4A_MOGO_MOGO_GOOGLE_LOCATION_SETTINGS_HELPER_H_

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--
+ # Copyright (c) 2013 mogoweb. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+ -->
 <!-- Copyright (c) 2012 The Chromium Authors. All rights reserved.
      Copyright (c) 2012, The Linux Foundation. All rights reserved.
 
@@ -7,11 +12,10 @@
      found in the LICENSE file.
  -->
 
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mogoweb.browser"
-    android:versionCode="27"
-    android:versionName="28.0.1500.94.3">
+    android:versionCode="28"
+    android:versionName="28.0.1500.94.4">
 
     <permission android:name="org.chromium.content_shell.permission.SANDBOX"
             android:protectionLevel="signature" />
