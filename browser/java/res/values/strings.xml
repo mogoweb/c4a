@@ -31,7 +31,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">MogoBrowser</string>
+    <string name="app_name">Mogo Browser</string>
 
     <!--  menu -->
     <string name="menu_history">History</string>

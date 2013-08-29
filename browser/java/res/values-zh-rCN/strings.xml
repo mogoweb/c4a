@@ -36,7 +36,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">芒果浏览器</string>
+    <string name="app_name">365浏览器</string>
     <string name="menu_settings">设置</string>
     <string name="menu_history">历史记录</string>
     <string name="menu_about_build">关于</string>

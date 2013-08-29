@@ -595,6 +595,9 @@ public class WebTab extends TabBase implements Tab {
             if (mediaType != MediaType.MEDIA_TYPE_NONE && mediaType != MediaType.MEDIA_TYPE_IMAGE)
                 return false;
 
+            if (linkUrl.isEmpty())
+                return false;
+
             for (Tab.Listener li : mListeners)
                 li.showContextMenu(linkUrl, mediaType, linkText, unfilteredLinkUrl, srcUrl);
 
