@@ -31,6 +31,10 @@
 
 package com.mogoweb.browser;
 
+import org.chromium.base.PathUtils;
+import org.chromium.content.browser.ContentView;
+import org.chromium.content.browser.ContentViewRenderView;
+
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -49,11 +53,9 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.mogoweb.browser.Intention.Type;
@@ -61,13 +63,9 @@ import com.mogoweb.browser.TabManager.TabData;
 import com.mogoweb.browser.preferences.BrowserPreferenceActivity;
 import com.mogoweb.browser.preferences.BrowserPreferences;
 import com.mogoweb.browser.utils.Logger;
-import com.mogoweb.browser.views.AnimationUtils;
 import com.mogoweb.browser.views.DesignShared;
-import com.mogoweb.browser.views.ViewUtils;
+import com.mogoweb.browser.web.Readability;
 import com.mogoweb.browser.web.WebTab;
-
-import org.chromium.content.browser.ContentView;
-import org.chromium.content.browser.ContentViewRenderView;
 
 public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.Listener {
 
@@ -95,6 +93,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private Button mMenuAboutBuildButton;
     private Button mMenuSettingsButton;
     private Button mMenuShowHistoryButton;
+    private Button mMenuReadModeButton;
 
     // state
     private boolean mHomeViewShown;
@@ -401,6 +400,9 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mMenuShowHistoryButton = (Button) menuView.findViewById(R.id.menu_history);
         mMenuShowHistoryButton.setOnClickListener(mMenuItemClickListener);
 
+        mMenuReadModeButton = (Button) menuView.findViewById(R.id.menu_readmode);
+        mMenuReadModeButton.setOnClickListener(mMenuItemClickListener);
+
         // Set the Bookmark if visible
         needsBookMarkUpdate(mTabManager.getActiveTab().getUrl());
 
@@ -437,6 +439,14 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
                 break;
             case R.id.menu_history:
                 displayHistory();
+                break;
+            case R.id.menu_readmode:
+                ContentView contentView = mTabManager.getActiveTab().getContentView();
+                String js = Readability.JS;
+                js.replace("__READABILITY_JS__", getResourcesFilename(Readability.READABILITY_JS));
+                js.replace("__READABILITY_CSS__", getResourcesFilename(Readability.READABILITY_CSS));
+                js.replace("__READABILITY_PRINT_CSS__", getResourcesFilename(Readability.READABILITY_PRINT_CSS));
+                contentView.evaluateJavaScript(js);
                 break;
 
             case R.id.menu_settings:
@@ -653,4 +663,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         loadUrlInNewTab("chrome://history");
     }
 
+    private String getResourcesFilename(String file) {
+        return "http://mogoweb.net/" + file;
+    }
 }

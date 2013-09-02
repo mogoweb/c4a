@@ -39,6 +39,7 @@
     <string name="app_name">365浏览器</string>
     <string name="menu_settings">设置</string>
     <string name="menu_history">历史记录</string>
+    <string name="menu_readmode">阅读模式</string>
     <string name="menu_about_build">关于</string>
 
     <string name="nostring"></string>

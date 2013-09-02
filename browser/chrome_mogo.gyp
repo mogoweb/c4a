@@ -5,6 +5,11 @@
   'variables': {
     'chromium_code': 1,
     'package_name': 'chromium_mogo',
+    'mogo_browser_assets': [
+      '<(DEPTH)/c4a/browser/java/assets/readability.js',
+      '<(DEPTH)/c4a/browser/java/assets/readability.css',
+      '<(DEPTH)/c4a/browser/java/assets/readability-print.css',
+    ],
   },
   'includes': [
     '../../chrome/chrome_android_paks.gypi', # Included for the list of pak resources.
@@ -63,6 +68,7 @@
         '../../chrome/chrome.gyp:chrome_java',
         '../../third_party/android_tools/android_tools.gyp:android_support_v4',
         'chromium_mogo_paks',
+        'chromium_mogo_assets',
         'libchromium_mogo',
       ],
       'variables': {
@@ -75,6 +81,7 @@
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
           '<(chrome_android_pak_output_folder)/devtools_resources.pak',
+          '<@(mogo_browser_assets)',
         ],
       },
       'includes': [ '../../build/java_apk.gypi', ],
@@ -132,6 +139,18 @@
           'files': [
             '<@(chrome_android_pak_input_resources)',
             '<(SHARED_INTERMEDIATE_DIR)/webkit/devtools_resources.pak',
+          ],
+        }
+      ],
+    },
+    {
+      'target_name': 'chromium_mogo_assets',
+      'type': 'none',
+      'copies': [
+        {
+          'destination': '<(chrome_android_pak_output_folder)',
+          'files': [
+            '<@(mogo_browser_assets)',
           ],
         }
       ],

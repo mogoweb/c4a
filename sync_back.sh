@@ -59,7 +59,9 @@ fi
 
 # chromium_mogo
 rsync -avz ${ANDROID_PROJECT_ROOT}/src/com/mogoweb/browser/ ${CHROMIUM_SRC}/c4a/browser/java/src/com/mogoweb/browser
+rsync -avz ${ANDROID_PROJECT_ROOT}/res/layout/ ${CHROMIUM_SRC}/c4a/browser/java/res/layout/
 rsync -avz ${ANDROID_PROJECT_ROOT}/res/xml/ ${CHROMIUM_SRC}/c4a/browser/java/res/xml/
+rsync -avz ${ANDROID_PROJECT_ROOT}/assets/ --exclude "*.pak" ${CHROMIUM_SRC}/c4a/browser/java/assets/
 rsync -avz ${ANDROID_PROJECT_ROOT}/res/values/strings.xml ${CHROMIUM_SRC}/c4a/browser/java/res/values/strings.xml
 rsync -avz ${ANDROID_PROJECT_ROOT}/res/values-zh-rCN/strings.xml ${CHROMIUM_SRC}/c4a/browser/java/res/values-zh-rCN/strings.xml
 rsync -avz ${ANDROID_PROJECT_ROOT}/AndroidManifest.xml ${CHROMIUM_SRC}/c4a/browser/java/AndroidManifest.xml
