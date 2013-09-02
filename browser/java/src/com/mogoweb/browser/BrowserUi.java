@@ -443,9 +443,9 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
             case R.id.menu_readmode:
                 ContentView contentView = mTabManager.getActiveTab().getContentView();
                 String js = Readability.JS;
-                js.replace("__READABILITY_JS__", getResourcesFilename(Readability.READABILITY_JS));
-                js.replace("__READABILITY_CSS__", getResourcesFilename(Readability.READABILITY_CSS));
-                js.replace("__READABILITY_PRINT_CSS__", getResourcesFilename(Readability.READABILITY_PRINT_CSS));
+                js = js.replace("__READABILITY_JS__", getResourcesFilename(Readability.READABILITY_JS));
+                js = js.replace("__READABILITY_CSS__", getResourcesFilename(Readability.READABILITY_CSS));
+                js = js.replace("__READABILITY_PRINT_CSS__", getResourcesFilename(Readability.READABILITY_PRINT_CSS));
                 contentView.evaluateJavaScript(js);
                 break;
 
