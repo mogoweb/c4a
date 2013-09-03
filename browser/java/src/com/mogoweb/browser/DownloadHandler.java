@@ -19,11 +19,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.URLUtil;
 import android.widget.Toast;
 
+import com.mogoweb.browser.utils.URLUtil;
 import com.mogoweb.browser.utils.WebAddress;
-import com.mogoweb.browser.web.CookieManager;
 
 public class DownloadHandler implements ContentViewDownloadDelegate {
 

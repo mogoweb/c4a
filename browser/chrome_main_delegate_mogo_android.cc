@@ -12,6 +12,7 @@
 #include "c4a/browser/mogo_content_browser_client.h"
 #include "c4a/browser/mogo_google_location_settings_helper.h"
 #include "c4a/browser/tab_manager.h"
+#include "c4a/browser/url_util.h"
 #include "c4a/browser/web_settings.h"
 #include "c4a/browser/web_tab.h"
 #include "chrome/browser/search_engines/template_url_prepopulate_data.h"
@@ -25,6 +26,7 @@ static base::android::RegistrationMethod kRegistrationMethods[] = {
     { "WebTab", WebTab::RegisterWebTab },
     { "LocationSettingsHelper", RegisterLocationSettingsHelper },
     { "CookieManager", RegisterCookieManager },
+    { "URLUtil", RegisterURLUtil },
 };
 
 base::LazyInstance<MogoContentBrowserClient>

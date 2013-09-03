@@ -14,8 +14,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mogoweb.browser"
-    android:versionCode="28"
-    android:versionName="28.0.1500.94.4">
+    android:versionCode="29"
+    android:versionName="28.0.1500.94.5">
 
     <permission android:name="org.chromium.content_shell.permission.SANDBOX"
             android:protectionLevel="signature" />
