@@ -1,4 +1,4 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Copyright (c) 2013 mogoweb. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -93,7 +93,7 @@ public class DownloadHandler implements ContentViewDownloadDelegate {
             }
         }
         onDownloadStartNoStream(url, userAgent, contentDisposition,
-                mimetype, referer);
+                mimetype, referer, cookie);
     }
 
     /**
@@ -128,7 +128,7 @@ public class DownloadHandler implements ContentViewDownloadDelegate {
      */
     /*package */ void onDownloadStartNoStream(
             String url, String userAgent, String contentDisposition,
-            String mimetype, String referer) {
+            String mimetype, String referer, String cookie) {
 
         String filename = URLUtil.guessFileName(url,
                 contentDisposition, mimetype);
@@ -187,10 +187,7 @@ public class DownloadHandler implements ContentViewDownloadDelegate {
         // show up in Gallery app, for example.
         request.allowScanningByMediaScanner();
         request.setDescription(webAddress.getHost());
-//        // XXX: Have to use the old url since the cookies were stored using the
-//        // old percent-encoded url.
-        String cookies = CookieManager.getInstance().getCookie(url);
-        request.addRequestHeader("cookie", cookies);
+        request.addRequestHeader("cookie", cookie);
         request.addRequestHeader("User-Agent", userAgent);
         request.addRequestHeader("Referer", referer);
         request.setNotificationVisibility(
@@ -201,7 +198,7 @@ public class DownloadHandler implements ContentViewDownloadDelegate {
             }
             // We must have long pressed on a link or image to download it. We
             // are not sure of the mimetype in this case, so do a head request
-            new FetchUrlMimeType(mActivity, request, addressString, cookies,
+            new FetchUrlMimeType(mActivity, request, addressString, cookie,
                     userAgent).start();
         } else {
             final DownloadManager manager
