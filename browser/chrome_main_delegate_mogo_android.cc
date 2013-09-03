@@ -8,6 +8,7 @@
 #include "base/android/jni_registrar.h"
 #include "base/lazy_instance.h"
 #include "c4a/browser/browsing_data_remover.h"
+#include "c4a/browser/cookie_manager.h"
 #include "c4a/browser/mogo_content_browser_client.h"
 #include "c4a/browser/mogo_google_location_settings_helper.h"
 #include "c4a/browser/tab_manager.h"
@@ -23,6 +24,7 @@ static base::android::RegistrationMethod kRegistrationMethods[] = {
     { "WebSettings", RegisterWebSettings },
     { "WebTab", WebTab::RegisterWebTab },
     { "LocationSettingsHelper", RegisterLocationSettingsHelper },
+    { "CookieManager", RegisterCookieManager },
 };
 
 base::LazyInstance<MogoContentBrowserClient>

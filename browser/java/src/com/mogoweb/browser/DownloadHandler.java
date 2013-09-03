@@ -19,11 +19,11 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
 import com.mogoweb.browser.utils.WebAddress;
+import com.mogoweb.browser.web.CookieManager;
 
 public class DownloadHandler implements ContentViewDownloadDelegate {
 
@@ -189,20 +189,20 @@ public class DownloadHandler implements ContentViewDownloadDelegate {
         request.setDescription(webAddress.getHost());
 //        // XXX: Have to use the old url since the cookies were stored using the
 //        // old percent-encoded url.
-//        String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
-//        request.addRequestHeader("cookie", cookies);
+        String cookies = CookieManager.getInstance().getCookie(url);
+        request.addRequestHeader("cookie", cookies);
         request.addRequestHeader("User-Agent", userAgent);
         request.addRequestHeader("Referer", referer);
         request.setNotificationVisibility(
                 DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if (mimetype == null) {
-//            if (TextUtils.isEmpty(addressString)) {
-//                return;
-//            }
-//            // We must have long pressed on a link or image to download it. We
-//            // are not sure of the mimetype in this case, so do a head request
-//            new FetchUrlMimeType(mActivity, request, addressString, cookies,
-//                    userAgent).start();
+            if (TextUtils.isEmpty(addressString)) {
+                return;
+            }
+            // We must have long pressed on a link or image to download it. We
+            // are not sure of the mimetype in this case, so do a head request
+            new FetchUrlMimeType(mActivity, request, addressString, cookies,
+                    userAgent).start();
         } else {
             final DownloadManager manager
                 = (DownloadManager) mActivity.getSystemService(Context.DOWNLOAD_SERVICE);

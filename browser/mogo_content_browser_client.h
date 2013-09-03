@@ -15,6 +15,9 @@ class MogoContentBrowserClient : public chrome::ChromeContentBrowserClient {
   virtual void OverrideWebkitPrefs(content::RenderViewHost* rvh,
                                    const GURL& url,
                                    WebPreferences* prefs) OVERRIDE;
+
+  virtual void RenderProcessHostCreated(
+      content::RenderProcessHost* host) OVERRIDE;
 };
 
 #endif // C4a_MOGO_CONTENT_BROWSER_CLIENT_H_
