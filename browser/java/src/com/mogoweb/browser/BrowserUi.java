@@ -411,9 +411,11 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
 
     private final PopupWindow.OnDismissListener mMenuDismissListener = new PopupWindow.OnDismissListener() {
         @Override
-        public void onDismiss() {
-            mMenuPopupWindow.setFocusable(false);
-            mMenuPopupWindow = null;
+        public synchronized void onDismiss() {
+            if (mMenuPopupWindow != null) {
+                mMenuPopupWindow.setFocusable(false);
+                mMenuPopupWindow = null;
+            }
         }
     };
 
