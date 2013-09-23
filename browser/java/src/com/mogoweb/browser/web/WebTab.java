@@ -85,6 +85,7 @@ public class WebTab extends TabBase implements Tab {
     public interface ClientDelegate {
         boolean addNewContents(int nativeSourceWebContents, int nativeWebContents,
                 int disposition, Rect initialPosition, boolean userGesture);
+        void activateContents(int nativeWebContents);
     }
 
     public WebTab(Activity activity, Intention args) {
@@ -329,6 +330,13 @@ public class WebTab extends TabBase implements Tab {
 
     public boolean isNativeActive() {
         return mLoaded;
+    }
+
+    public boolean isSameWebContents(int nativeWebContents) {
+        if (nativeWebContents == mNativeWebContents)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -584,6 +592,13 @@ public class WebTab extends TabBase implements Tab {
                         disposition, null, userGesture);
             }
             return false;
+        }
+
+        @Override
+        public void activateContents(int nativeWebContents) {
+            if (mClientDelegate != null) {
+                mClientDelegate.activateContents(nativeWebContents);
+            }
         }
 
         @Override

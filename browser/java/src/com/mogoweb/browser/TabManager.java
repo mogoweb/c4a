@@ -163,6 +163,10 @@ public class TabManager implements WebTab.ClientDelegate {
         return true;
     }
 
+    @Override
+    public void activateContents(int nativeWebContents) {
+        showTab(nativeWebContents);
+    }
 
     public void setTabIntention(Intention args) {
 
@@ -334,6 +338,18 @@ public class TabManager implements WebTab.ClientDelegate {
 
     public TabData getTabData(int i) {
         return mTabs.get(i);
+    }
+
+    public void showTab(int nativeWebContents) {
+        for (TabData td : mTabs) {
+            if (td.tab.getEmbodiment() == Tab.Embodiment.E_Web) {
+                WebTab tab = (WebTab)td.tab;
+                if (tab.isSameWebContents(nativeWebContents)) {
+                    showTab(td);
+                    return;
+                }
+            }
+        }
     }
 
     // Added for testing
