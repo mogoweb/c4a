@@ -40,6 +40,7 @@
     <string name="menu_settings">设置</string>
     <string name="menu_history">历史记录</string>
     <string name="menu_readmode">阅读模式</string>
+    <string name="menu_plugins">插件</string>
     <string name="menu_about_build">关于</string>
 
     <string name="nostring"></string>
@@ -178,4 +179,5 @@
     <string name="geolocation_settings_page_title">位置信息访问权限</string>
     <string name="geolocation_settings_page_summary_allowed">此网站有权访问您的位置信息</string>
     <string name="geolocation_settings_page_summary_not_allowed">此网站无权访问您的位置信息</string>
+    <string name="plugin_no_items">无插件</string>
 </resources>

@@ -36,6 +36,7 @@
     <!--  menu -->
     <string name="menu_history">History</string>
     <string name="menu_readmode">Readability</string>
+    <string name="menu_plugins">Plugins</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about_build">About this build</string>
 
@@ -199,4 +200,7 @@
     <string name="geolocation_settings_page_title">Location access</string>
     <string name="geolocation_settings_page_summary_allowed">This site can access your location</string>
     <string name="geolocation_settings_page_summary_not_allowed">"This site can't access your location"</string>
+
+    <!-- plugins -->
+    <string name="plugin_no_items">No plugins</string>
 </resources>

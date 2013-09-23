@@ -87,6 +87,12 @@
         android:background="@drawable/toolbar_button_bg"
         android:text="@string/menu_readmode"/>
     <Button
+        android:id="@+id/menu_plugins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_button_bg"
+        android:text="@string/menu_plugins"/>
+    <Button
         android:id="@+id/menu_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

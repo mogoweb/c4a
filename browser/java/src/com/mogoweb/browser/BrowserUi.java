@@ -31,7 +31,6 @@
 
 package com.mogoweb.browser;
 
-import org.chromium.base.PathUtils;
 import org.chromium.content.browser.ContentView;
 import org.chromium.content.browser.ContentViewRenderView;
 
@@ -60,6 +59,7 @@ import android.widget.PopupWindow;
 
 import com.mogoweb.browser.Intention.Type;
 import com.mogoweb.browser.TabManager.TabData;
+import com.mogoweb.browser.addon.PluginManagerActivity;
 import com.mogoweb.browser.preferences.BrowserPreferenceActivity;
 import com.mogoweb.browser.preferences.BrowserPreferences;
 import com.mogoweb.browser.utils.Logger;
@@ -94,6 +94,7 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
     private Button mMenuSettingsButton;
     private Button mMenuShowHistoryButton;
     private Button mMenuReadModeButton;
+    private Button mMenuPluginsButton;
 
     // state
     private boolean mHomeViewShown;
@@ -403,6 +404,9 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
         mMenuReadModeButton = (Button) menuView.findViewById(R.id.menu_readmode);
         mMenuReadModeButton.setOnClickListener(mMenuItemClickListener);
 
+        mMenuPluginsButton = (Button) menuView.findViewById(R.id.menu_plugins);
+        mMenuPluginsButton.setOnClickListener(mMenuItemClickListener);
+
         // Set the Bookmark if visible
         needsBookMarkUpdate(mTabManager.getActiveTab().getUrl());
 
@@ -450,10 +454,16 @@ public class BrowserUi implements Tab.Listener, TabManager.Listener, ToolbarUi.L
                 js = js.replace("__READABILITY_PRINT_CSS__", getResourcesFilename(Readability.READABILITY_PRINT_CSS));
                 contentView.evaluateJavaScript(js);
                 break;
+            case R.id.menu_plugins: {
+                Intent myIntent = new Intent(mContext, PluginManagerActivity.class);
+                mContext.startActivity(myIntent);
+            }
+                break;
 
-            case R.id.menu_settings:
+            case R.id.menu_settings: {
                 Intent myIntent = new Intent(mContext, BrowserPreferenceActivity.class);
                 mContext.startActivity(myIntent);
+            }
                 break;
             }
             mMenuPopupWindow.dismiss();
